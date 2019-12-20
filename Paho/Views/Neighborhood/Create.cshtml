@@ -1,0 +1,152 @@
+﻿@model Paho.Models.Neighborhood
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@(((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelState"))</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Country -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.State.Area.CountryID, (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelCountry")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("CountryID", ViewBag.Countries as SelectList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.State.Area.CountryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- AreaID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.State.AreaID, (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelArea")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("AreaID", ViewBag.Areas as SelectList, (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgSelectLabel")),
+                            htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.State.AreaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- StateID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateID, (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelState")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("StateID", new SelectList(" "), (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgSelectLabel")),
+                            htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StateID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Name -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, (((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelNeighborhood")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- orig_country -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.orig_country, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.orig_country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.orig_country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Code -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- RegionID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegionID, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.RegionID, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- latitude -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.latitude, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- longitude -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.longitude, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- x -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.x, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.x, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- y -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.y, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.y, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- Boton: sbmit -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    function limpiarCampos(){
+        $("#Name").val("");
+        $("#orig_country").val("");
+        $("#Code").val("");
+        $("#RegionID").val("");
+        $("#latitude").val("");
+        $("#longitude").val("");
+        $("#x").val("");
+        $("#y").val("");
+    }
+
+    $(document).ready(function () {
+        $("#AreaID").change(function () {       // Area : Departamento
+            $.get("/cases/GetStates", { AreaID: $("#AreaID").val() }, function (data) {
+                $("#StateID").empty();
+
+                $("#StateID").append("<option value=''>" + "@(((Paho.Controllers.NeighborhoodController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#StateID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+
+                limpiarCampos();
+            });
+        });
+
+        $("#StateID").change(function () {      //  State : Municipio
+            limpiarCampos();
+        });
+    });
+
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>

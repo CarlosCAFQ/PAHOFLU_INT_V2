@@ -1,0 +1,227 @@
+﻿@model Paho.Models.Institution
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" data-bind="with: app.Views.CatalogInstitution">
+        <h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) - @(Paho.Controllers.ResourcesM.SgetMessage("msgInstitutions", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Location -->
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.LocationTypeID, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatInstitution_Location", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("LocationTypeID", ViewBag.cod_institution_type_location as SelectList, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <!-- País Foreign -->
+        <div class="form-group vertical-align" id="div-ForeignCountry">
+            @Html.LabelFor(model => model.ForeignCountryID, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatInstitution_Country", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("ForeignCountryID", ViewBag.ForeignCountries as SelectList, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <!-- Area (Parish) -->
+        <div class="form-group vertical-align">
+            <label class="col-md-1_5 text-right" for="AreaID">@((string)Paho.Controllers.ResourcesM.SgetMessage("msgCaselistVigTabGeoLabelArea", ViewBag.UsrCtry, ViewBag.UsrCtryLang)):</label>
+            <div class="col-md-10">
+                @*@Html.DropDownList("AreaID", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownList("AreaID", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.FullName, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgCompleteName", ViewBag.UsrCtry, ViewBag.UsrCtryLang))+":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.Name, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgShortName", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Direccion Foreign -->
+        <div class="form-group vertical-align" id="div-ForeignInstitutionAddress">
+            @Html.LabelFor(model => model.ForeignInstitutionAddress, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatInstitution_Address", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ForeignInstitutionAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ForeignInstitutionAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Access level -->
+        <div class="form-group vertical-align">
+            <label class="col-md-1_5 text-right" for="AccessLevel">@((string)Paho.Controllers.ResourcesM.SgetMessage("msgLevelAccess", ViewBag.UsrCtry, ViewBag.UsrCtryLang)):</label>
+            <div class="col-md-10">
+                @Html.DropDownList("AccessLevel", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <!-- Tipo institucion -->
+        <div class="form-group vertical-align">
+            <label class="col-md-1_5 text-right" for="InstitutionType">@((string)Paho.Controllers.ResourcesM.SgetMessage("msgType", ViewBag.UsrCtry, ViewBag.UsrCtryLang)):</label>
+            <div class="col-md-10">
+                @Html.DropDownList("InstitutionType", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <!-- Tipo institucion HN -->
+        @if (ViewBag.UsrCtry == 15)
+        {
+            <div class="form-group vertical-align" data-bind="visible:@( ViewBag.UsrCtry == 15 )">
+                <label class="col-md-1_5 text-right" for="InstitutionType">@((string)Paho.Controllers.ResourcesM.SgetMessage("msgTypeHON", ViewBag.UsrCtry, ViewBag.UsrCtryLang)):</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("cod_institution_type", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        }
+        <!-- No se utiliza?? -->
+        <div class="form-group vertical-align" style="display:none">
+            @Html.LabelFor(model => model.InstID, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgPersonalizeInstitutionId", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InstID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InstID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Institucion padre -->
+        <div class="form-group vertical-align" id="div-father">
+            @Html.LabelFor(model => model.Father_ID, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgParentInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("Father_ID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" >
+            @Html.LabelFor(model => model.SARI, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgIrag", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.SARI, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.ILI, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgIli", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.ILI, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.surv_unusual, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUnusual", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.surv_unusual, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- PCR -->
+        <div class="form-group vertical-align" id="div-PCR">
+            @Html.LabelFor(model => model.PCR, htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.PCR, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- IFI -->
+        <div class="form-group vertical-align" id="div-IFI">
+            @Html.LabelFor(model => model.IFI, htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.IFI, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- Activo -->
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.Active, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgActive", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.sentinel, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgSentinel", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.sentinel, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="div-NPHL">
+            @Html.LabelFor(model => model.NPHL, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgNPHL", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.NPHL, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <!-- Laboratorio NIC -->
+        <div class="form-group vertical-align" id="div-LabNIC">
+            @Html.LabelFor(model => model.LabNIC, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgLabNIC", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.LabNIC, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align"  id="div-OPbL">
+            @Html.LabelFor(model => model.OrdenPrioritybyLab, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgOrdenPrioritybyLab", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrdenPrioritybyLab, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OrdenPrioritybyLab, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.orig_country, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgOriginalCountryCode", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.orig_country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.orig_country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="RegionInstitucionalGroup" >
+            @Html.LabelFor(model => model.cod_region_institucional, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgInstitutionalRegion", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("cod_region_institucional", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="RegionSaludGroup">
+            @Html.LabelFor(model => model.cod_region_salud, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgHealthRegion", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("cod_region_salud", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="RegionPaisGroup">
+            @Html.LabelFor(model => model.cod_region_pais, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgCountryRegion", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-10">
+                @Html.DropDownList("cod_region_pais", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+		
+		<div>
+			@Html.HiddenFor(model => model.InstType, new { htmlAttributes = new { @class = "form-control" } })
+		</div>
+
+        <div class="form-group vertical-align">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewCatPopulation_Crear", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "CatInstitucion", new { }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/catalog-institution")
+}
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

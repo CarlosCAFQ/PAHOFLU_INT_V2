@@ -1,0 +1,300 @@
+﻿@model Paho.Models.SummaryJMViewModel
+
+<style>
+    .yearEpidem {
+        background-color: #77dd77;
+        /*background-color: #428bca;*/
+        color: white;
+    }
+</style>
+
+<!-- ko with: app.Views.Summary -->
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <!--Country-->
+    @if (Model.DisplayCountries)
+    {
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    <!--País:-->
+                    @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelCountry"))
+                </span>
+                <select id="Pais" class="form-control" data-bind="options: activecountries,
+                        optionsText: 'Name',
+                        optionsValue: 'Id',
+                        value: selectedCountryId,
+                        optionsCaption: '@(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryFieldSelect"))',
+                        event:{ change: ReloadHospitals}"></select>
+            </div>
+        </div>
+    }
+    <!--Hospital-->
+    @if (Model.DisplayHospitals)
+    {
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    <!--Establecimientos:-->
+                    @*(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelParish"))*@
+                    @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelILISentinelSite"))
+                </span>
+                <select id="combHospital1" class="form-control" data-bind="options: hospitals,
+                    optionsText: 'Name',
+                    optionsValue: 'Id',
+                    value: selectedHospitalId,
+					event:{change: GetYearSummaryForYearItemsJM}">
+                </select>
+            </div>
+        </div>
+    }
+    <!--Fecha-->
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Fecha:-->
+                @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelDate"))
+            </span>
+            <input id="HospitalDate" type='text' class="form-control" data-bind='datepicker: HospitalDate, datepickerOptions: { beforeShowDay: PickLastDay, maxDate:@Model.DatePickerConfig, dateFormat:"@Model.DateFormatDP"}' />
+        </div>
+    </div>
+    <!--EW-->
+    <div class="col-md-2">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Semana Epi:-->
+                @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelEpidemWeek"))
+            </span>
+            <input id="HospitalEW" type='text' readonly="readonly" class="form-control" data-bind="value: HospitalEW" />
+        </div>
+    </div>
+    <!--EY-->
+    <div class="col-md-2">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año Epi:-->
+                @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelEpidemYear"))
+            </span>
+            <input id="HospitalYE" type='text' readonly="readonly" class="form-control" data-bind="value: HospitalYE" />
+        </div>
+    </div>
+</div>
+
+<!-- Boton Confirmar-->
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class="btn-group">
+            <!--<button id="search" type="button" class="btn btn-primary" data-bind="click: GetSummayItems">Confirmar</button> -->
+            <button id="search" type="button" class="btn btn-primary" data-bind="click: GetSummayItemsJM">@(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryButtonConfirm"))</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cabecera Ingreso de Datos -->
+<div class="row rowform" id="LabelSummary">
+    <!-- Cabecera Grupos de Edad -->
+    <div class="col-md-2">
+        <span class="input-group-addon">
+            <!--Grupo edad-->
+            @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelAgeGroup"))
+        </span>
+    </div>
+
+    <!-- Cabecera Datos -->
+    <!--  -->
+    <div class="col-md-1 input-group">
+        <span class="input-group-addon">
+            @( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILICases")) )
+        </span>
+    </div>
+    <!--  -->
+    <div class='col-md-1 input-group'>
+        <span class="input-group-addon" >
+            @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILISamplesTaken"))
+        </span>
+    </div>
+    <!--  -->
+    <div class='col-md-1 input-group'>
+        <span class="input-group-addon">
+            @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILITotalVisits"))
+        </span>
+    </div>
+</div>
+
+<!-- ko foreach: SummayItems -->
+<div class="row rowform" dstyle="margin-top:1em;">
+    <div class="col-md-2">
+        <span class="input-group-addon" data-bind="text: AgeGroupDescription">
+        </span>
+    </div>
+
+    <!-- Casos -->
+    <div class="col-md-1" id="ICases">
+        <div class='col-md-1 input-group'>
+            <input type='text' name="ILICases" id="ILICases" class="form-control" style="padding:6px;" data-bind="value: ILICases" />
+        </div>
+    </div>
+    <!-- Muestras -->
+    <div class="col-md-1" id="ISamplesTaken">
+        <div class='col-md-1 input-group'>
+            <input type='text' name="ILISamplesTaken" id="ILISamplesTaken" class="form-control" style="padding:6px;" data-bind="value: ILISamplesTaken" />
+        </div>
+    </div>
+    <!-- Visitas -->
+    <div class="col-md-1" id="ITotalVisits">
+        <div class='input-group col-md-1'>
+            <input type='text' name="TotalVisits" id="TotalVisits" class="form-control" style="padding:6px;" data-bind="value: TotalVisits" />
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+
+<!-- Totales -->
+<div class="row rowform" id="TotalSummary">
+    <!--Totales-->
+    <div class="col-md-2">
+        <span class="input-group-addon">
+            @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelTotal"))
+        </span>
+    </div>
+
+    <!-- Hospitalizacion -->
+    <div class="col-md-1">
+        <span class='col-md-1 input-group'>
+            <input type='text' class="form-control" style="padding:6px;" readonly="readonly" id="ColILICasesST" data-bind="value: ColILICasesST" />
+        </span>
+    </div>
+    <!-- UCI -->
+    <div class="col-md-1">
+        <span class='col-md-1 input-group'>
+            <input type='text' class="form-control" style="padding:6px;" readonly="readonly" id="ColILISamplesTakenST" data-bind="value: ColILISamplesTakenST" />
+        </span>
+    </div>
+    <!-- Fallecidos -->
+    <div class="col-md-1">
+        <span class='col-md-1 input-group'>
+            <input type='text' class="form-control" style="padding:6px;" readonly="readonly" id="ColTotalVisitsST" data-bind="value: ColTotalVisitsST" />
+        </span>
+    </div>
+</div>
+
+<!-- Botones -->
+<div class="row" id="ButtonSummary" style="margin-bottom:15px; margin-top:1em; display:none;">
+    <div class="col-md-6">
+        <div class="btn-group">
+            <button id="ConfirmarItems" type="button" class="btn btn-primary" data-bind="click: SaveSummayItemsJM">@(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryButtonSave"))</button>
+            <button id="CancelarItems" type="button" class="btn btn-primary" data-bind="click: CancelarItems">@(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryButtonCancel"))</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bandeja -->
+<div class="container" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-2">
+        <div class='input-group'>
+            <span class="input-group-addon yearEpidem">
+                @(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgGeneralYear"))
+            </span>
+            <select id="EpiYear" class="form-control" data-bind="options: availableYears,
+                    value: EpiYear,
+					event:{change: GetYearSummaryForYearItemsJM}"> 
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-hover table-responsive" style="width:640px;">
+        <!-- Cabecera -->
+        <thead id="LabelBandeja">
+            <tr>
+                <!-- Semana epidemiológica -->
+                <th class="col-md-1">@(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryLabelEpidemWeek"))</th>
+
+                <!-- ILI Cases -->
+                <th class="col-md-1">
+                    @( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILICases")) )
+                </th>
+                <!-- Samples taken -->
+                <th class="col-md-1">
+                    @( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILISamplesTaken")) )
+                </th>
+                <!-- Total visits -->
+                <th class="col-md-1">
+                    @( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMILITotalVisits")) )
+                </th>
+                @if (Model.DisplayTotalGroup)
+                {
+                    <th class="col-md-1">
+                    </th>
+                    <th class="col-md-1">
+                    </th>
+                    <th class="col-md-1">
+                        <span style="color:#FD322F">@( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMTotalGrandILICases")) )</span>
+                    </th>
+                    <th class="col-md-1">
+                        <span style="color:#FD322F">@( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMTotalGrandILISamplesTaken")) )</span>
+                    </th>
+                    <th class="col-md-1">
+                        <span style="color:#FD322F">@( (((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryJMTotalGrandTotalVisits")) )</span>                        
+                    </th>
+                }
+            </tr>
+        </thead>
+
+        <!-- Cuerpo -->
+        <tbody>
+            <!-- ko foreach: SummaryForYearItems -->
+            <!--reemplazo-->
+            <!-- fin reemplazo-->
+            <tr style="cursor:pointer;" id="TotalBandeja" data-bind="attr: { 'data-week': StartDateOfWeek }, click: showEpiWeekJM">
+                <td>
+                    <span data-bind="text: ColEpiYearWeek" />
+                </td>
+
+                <td>
+                    <span data-bind="text: ColILICasesST" />
+                </td>
+                <td>
+                    <span data-bind="text: ColILISamplesTakenST" />
+                </td>
+                <td>
+                    <span data-bind="text: ColTotalVisitsST" />
+                </td>
+                <!-- Totales grupo -->
+                @if (Model.DisplayTotalGroup)
+                {
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <span data-bind="text: ColILICaseGroup" />
+                    </td>
+                    <td>
+                        <span data-bind="text: ColILISampGroup" />
+                    </td>
+                    <td>
+                        <span data-bind="text: ColTotVisiGroup" />
+                    </td>
+                }
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var countries = @Html.Raw(Json.Encode(Model.Countries));
+    var institutions = @Html.Raw(Json.Encode(Model.Institutions));
+    var CatAgeGroup = @Html.Raw(Json.Encode(Model.CatAgeGroup));
+    var selcty = @ViewBag.UsrCtry;
+
+    var PAHOFLU_date_format = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgDateFormat")))";
+    var moment_date_format = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgDateFormatMoment")))";
+    var ISO_date_format = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgDateFormatISO")))";
+    var DatePicker_date_format = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgDateFormatDP")))";
+
+    var msgViewSummaryAlertSelectILISentinelSite = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryAlertSelectILISentinelSite")))";
+
+    /////////var MsgSavedData = "@(Html.Raw(((Paho.Controllers.SummaryJMController)this.ViewContext.Controller).getMsg("msgViewSummaryValidateSavedData")))";
+    //***************************************
+    $('a#SummaryJMM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>
+<!-- /ko -->

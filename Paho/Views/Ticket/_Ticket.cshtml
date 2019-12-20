@@ -1,0 +1,455 @@
+﻿
+<style>
+    .col-md-10{
+        margin-top:10px;
+    }
+    #DescriptionTicket{
+        max-width:400px;
+        max-height:145px;
+        height:145px;
+    }
+    #SubjectTicket{
+        width:426px;
+        max-width:426px;
+    }
+    .fileChooser{
+        margin-bottom:10px;
+    }
+    .ticketFileChooser{
+        display:inline!important;
+        margin-left:10px;
+        max-width: 190px;
+    }
+    #fileSizeTotal{
+        margin-left:40px;
+        color: blue;
+        font-weight:bold;
+    }
+    #clearButton1,#clearButton2,#clearButton3{
+        margin-left: 5px;
+        display:none;
+    }
+    #ticketAttachmentWarning{
+        margin: 20px 5px;
+    }
+    #ticketAttachmentWarningMsg{
+        color:red;
+        font-weight:bold;
+        display:none;
+    }
+    #attachmentLoader{
+        display:none;
+    }
+    attachmentLoaderContainer{
+        display:inline;
+    }
+    #ticketStatus,#ticketStatusLabel{
+        display:none;
+    }
+    #ticketPriority,#ticketPriorityLabel{
+        display:none;
+    }
+    #editTicket{
+        display:none;
+    }
+    #IDTicket{
+        display:none;
+    }
+    #rolType{
+        display:none;
+    }
+</style>
+<!-- ko with: app.Views.Ticket -->
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-6">
+        <!--Fecha-->
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Fecha:-->
+                @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketSubjectLabel"))
+            </span>
+            <input id="SubjectTicket" type='text' class="form-control" data-bind="value: ticketSubject" /> 
+            <input id="IDTicket" type='text' class="form-control" data-bind="value: ticketID" />           
+            <input id="rolType" type='text' class="form-control" data-bind="value: rolType" />           
+        </div>
+                
+    </div>
+    
+    <div class="col-md-10">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Fecha:-->
+                @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketDescriptionLabel"))
+            </span>
+            <textarea id="DescriptionTicket" class="form-control" data-bind="value: ticketMsg"></textarea>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class='input-group'>
+            <span id="ticketStatusLabel" class="input-group-addon" >
+                <!--Fecha:-->
+                @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketStatusLabel"))
+            </span>
+            <select id="ticketStatus" class="form-control" data-bind="value: ticketStatus" disabled="disabled">
+                <option value="0" selected>-</option>
+                <option value="1">ENVIADO</option>
+                <option value="2">EN PROCESO</option>
+                <option value="3">PRUEBAS EN DESARROLLO</option>
+                <option value="4">PRUEBAS EN PRODUCCION</option>
+                <option value="5">FINALIZADO</option>
+                <option value="6">CERRADO</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class='input-group'>
+            <span id="ticketPriorityLabel" class="input-group-addon">
+                <!--Fecha:-->
+                @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketPriorityLabel"))
+            </span>
+            <select id="ticketPriority" class="form-control" data-bind="value: ticketPriority" disabled="disabled">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>                
+            </select>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="input-group">
+            <button id="editTicket" type="button" class="btn btn-primary" disabled="disabled" data-bind="click: EditTicket">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketEditTicketLabel"))</button>
+        </div>
+    </div>
+    <div id="ticketAttachmentWarning" class="col-md-10">
+        @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachmentFileTypeWarning"))
+    </div>
+    <div id="ticketAttachmentWarningMsg" class="col-md-10">
+        @(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachmentFileTypeWarningMsg"))
+    </div>   
+    <div class="col-md-10 fileChooser">
+        <div class='input-group'>
+            <label for="ticketFile">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachment"))</label>            
+            <input class="ticketFileChooser" type="file" id="ticketFile" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .jpg, .gif, .png"/>
+            <span>@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachmentSize"))</span>
+            <span id="fileSize1"></span>
+            <img id="clearButton1" src="~/Content/themes/base/images/CrossSmall.png" onclick="cleanFileElement(1)">
+        </div>
+    </div>
+    <div class="col-md-10 fileChooser">
+        <div class='input-group'>
+            <label for="ticketFile2">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachment2"))</label>
+            <input class="ticketFileChooser" type="file" id="ticketFile2" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .jpg, .gif, .png"/>
+            <span>@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachmentSize"))</span>
+            <span id="fileSize2"></span>
+            <img id="clearButton2" src="~/Content/themes/base/images/CrossSmall.png" onclick="cleanFileElement(2)">
+        </div>
+    </div>
+    <div class="col-md-10 fileChooser">
+        <div class='input-group'>
+            <label for="ticketFile3">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachment3"))</label>
+            <input class="ticketFileChooser" type="file" id="ticketFile3" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .jpg, .gif, .png"/>
+            <span>@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketAttachmentSize"))</span>
+            <span id="fileSize3"></span>
+            <img id="clearButton3" src="~/Content/themes/base/images/CrossSmall.png" onclick="cleanFileElement(3)">
+            <span id="fileSizeTotal"></span>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="input-group">
+            <button id="cleanForm" type="button" class="btn btn-primary" onclick="CleanForm()">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketCleanForm"))</button>
+            <button id="newTicket" type="button" class="btn btn-primary" data-bind="click: SendTicket">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketNewTicketLabel"))</button>
+            
+                <img id="attachmentLoader" src="~/Content/themes/base/images/loader-1s-29px.gif"/>
+            
+        </div>
+    </div>
+</div>
+<script>
+    var inputFile1 = document.querySelector('#ticketFile');
+    inputFile1.addEventListener('change', checkFilesRequirements);
+
+    var inputFile2 = document.querySelector('#ticketFile2');
+    inputFile2.addEventListener('change', checkFilesRequirements);
+
+    var inputFile3 = document.querySelector('#ticketFile3');
+    inputFile3.addEventListener('change', checkFilesRequirements);
+
+    
+
+    function cleanFileElement(fileElement){
+        //alert('entro');
+        switch(fileElement){
+            case 1: $('#ticketFile').val("").change();              
+                    $('#fileSize1').text("");
+                    checkFilesRequirements();
+                    break;
+            case 2: $('#ticketFile2').val("").change();              
+                    $('#fileSize2').text("");
+                    checkFilesRequirements();
+                    break;
+            case 3: $('#ticketFile3').val("").change();              
+                    $('#fileSize3').text("");
+                    checkFilesRequirements();
+                    break;
+        }
+    }
+
+    function checkFilesRequirements(){
+        
+        var maxFilesSize = 4 * 1024 * 1024;
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.ppt|\.pptx)$/i;
+
+        var resultFileType1 = false;
+        var resultFileType2 = false;
+        var resultFileType3 = false;
+
+        var resultFileSize1 = 0;
+        var resultFileSize2 = 0;
+        var resultFileSize3 = 0;
+
+        var inputFile1 = document.querySelector('#ticketFile');        
+        var inputFile2 = document.querySelector('#ticketFile2');        
+        var inputFile3 = document.querySelector('#ticketFile3');  
+
+        if(allowedExtensions.exec(inputFile1.value))
+        {
+            resultFileType1 = true;                     
+        }
+
+        if(allowedExtensions.exec(inputFile2.value))
+        {
+            resultFileType2 = true;                     
+        }
+
+        if(allowedExtensions.exec(inputFile3.value))
+        {
+            resultFileType3 = true;                     
+        }
+
+        if(inputFile1.files.length > 0){
+            resultFileSize1 = inputFile1.files[0].size;
+            $('#clearButton1').css('display','inline');
+        }
+        else{
+            $('#clearButton1').css('display','none');
+        }
+        if(inputFile2.files.length > 0){
+            resultFileSize2 = inputFile2.files[0].size;
+            $('#clearButton2').css('display','inline');
+        }
+        else{
+            $('#clearButton2').css('display','none');
+        }
+        if(inputFile3.files.length > 0){
+            resultFileSize3 = inputFile3.files[0].size;
+            $('#clearButton3').css('display','inline');
+        }
+        else{
+            $('#clearButton3').css('display','none');
+        }
+        
+
+        $('#fileSize1').text((resultFileSize1/1024/1024).toFixed(2)+'MB') ;
+        $('#fileSize2').text((resultFileSize2/1024/1024).toFixed(2)+'MB') ;
+        $('#fileSize3').text((resultFileSize3/1024/1024).toFixed(2)+'MB') ;
+
+        var totalFilesSize = resultFileSize1+resultFileSize2+resultFileSize3;
+        $('#fileSizeTotal').text('Total:' + (totalFilesSize/1024/1024).toFixed(2)+'MB');
+
+        if(totalFilesSize>maxFilesSize){
+            $('#fileSizeTotal').css('color','red');
+            $('#newTicket').prop('disabled',true);
+        }
+        else{
+            $('#fileSizeTotal').css('color','blue');
+            $('#newTicket').prop('disabled',false);
+            if((!resultFileType1 && inputFile1.files.length > 0) || (!resultFileType2 && inputFile2.files.length > 0) || (!resultFileType3 && inputFile3.files.length > 0)){
+                $('#ticketAttachmentWarningMsg').show();
+                $('#newTicket').prop('disabled',true);
+            }
+            else{
+                $('#ticketAttachmentWarningMsg').hide();
+                $('#newTicket').prop('disabled',false);
+            }
+        }
+    }                    
+    
+</script>
+<div class="container" style="margin-bottom:15px; margin-top:1em;">
+    <table id="TicketList" class="table table-hover table-responsive" style="width:550px; display:none;">
+        <thead>
+            <tr data-bind="attr:{'cursor':'pointer'},click: GetTicketList">
+                <th class="col-md-1" style="text-align:center;">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTableDate"))</th>
+                <th class="col-md-1">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTableID"))</th>
+                <th class="col-md-1">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTableSubject"))</th>                
+                <th class="col-md-1" style="text-align:center;">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTableDescription"))</th>
+                <th class="col-md-1" style="text-align:center;">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTableStatus"))</th>
+                <th class="col-md-1" style="text-align:center;">@(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketTablePriority"))</th>                
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script>
+    function CleanForm(){
+
+        $('#newTicket').prop('disabled', false);
+        $('#SubjectTicket').prop('disabled', false);
+        $('#DescriptionTicket').prop('disabled', false);
+        $('#ticketStatus').prop('disabled', true);
+        $('#ticketPriority').prop('disabled', true);
+        $('#editTicket').prop('disabled', true);
+
+        $('#SubjectTicket').val("").change();
+        $('#DescriptionTicket').val("").change();
+        $('#ticketStatus').val("0").change();
+        $('#ticketPriority').val("0").change();
+        $('#IDTicket').val('').change();
+        $('#ticketFile').val("").change();
+        $('#ticketFile2').val("").change();
+        $('#ticketFile3').val("").change();
+        $('#fileSize1').text("");
+        $('#fileSize2').text("");
+        $('#fileSize3').text("");
+        $('#fileSizeTotal').text("");
+        $('#fileSizeTotal').css('color', 'blue');
+               
+        $('#clearButton1').css('display', 'none');
+        $('#clearButton2').css('display', 'none');
+        $('#clearButton3').css('display', 'none');
+       
+
+
+    }
+    function GetTicketList() {
+        $(document).ready(function () {           
+            $.ajax({
+                type: 'POST',
+                url: '/ticket/GetTicket',
+                data: '{}',                
+                success: function (data) {
+                    var rolResult = data[0].rol;
+                    switch(rolResult) {
+                        case "User":
+                                $('#ticketStatusLabel').css('display','none');
+                                $('#ticketStatus').css('display','none');
+                                $('#rolType').val('User').change();
+                                    break;
+                        case "Admin":
+                                $('#ticketStatusLabel').css('display','table-cell');
+                                $('#ticketStatus').css('display','table-cell');
+                                $('#ticketStatus').prop('disabled', true);
+                                $('#ticketPriorityLabel').css('display','table-cell');
+                                $('#ticketPriority').css('display','table-cell');
+                                $('#ticketPriority').prop('disabled', true);
+                                $('#editTicket').css('display','none');
+                                $('#rolType').val('Admin').change();
+                                break;
+                        case "Support":
+                                $('#ticketStatusLabel').css('display','table-cell');
+                                $('#ticketStatus').css('display','table-cell');
+                                $('#ticketStatus').prop('disabled', true);
+                                $('#ticketPriorityLabel').css('display','table-cell');
+                                $('#ticketPriority').css('display','table-cell');
+                                $('#ticketPriority').prop('disabled', true);
+                                $('#editTicket').css('display','table-cell');
+                                $('#rolType').val('Support').change();
+                                break;
+                    }
+                    $("#TicketList").show();
+                    var trHTML = '';
+                    var statusText;
+                    $("#TicketList > tbody").html("");
+                    $.each(data, function (i, item) {
+                        if(i>0){
+                            //var statusText;
+                            //alert(item.status);  
+                            switch(item.status){
+                                case '0'://-
+                                    statusText = '-';
+                                    break;
+                                case '1'://Enviado
+                                    statusText = 'Enviado';
+                                    break;
+                                case '2'://En proceso
+                                    statusText = 'En proceso';
+                                    break;
+                                case '3'://Pruebas en desarrollo
+                                    statusText = 'Pruebas en desarrollo';
+                                    break;
+                                case '4'://Pruebas en produccion
+                                    statusText = 'Pruebas en produccion';
+                                    break;
+                                case '5'://Finalizado
+                                    statusText = 'Finalizado';
+                                    break;
+                                case '6'://Cerrado
+                                    statusText = 'Cerrado';
+                                    break;
+                            }
+                            //alert(statusText);
+                            trHTML += '<tr donclick="dloadTicket(this)"><td style="width:10%;">' + item.ticketDate + '</td><td style="width:10%;">' + item.ID + '</td><td style="width:10%;">' + item.subject + '</td><td style="width:10%;">' + item.description + '</td><td style="width:10%;">' + statusText + '</td><td style="width:10%;">' + item.priority + '</td></tr>';
+                            
+                        }
+                    });
+                    $('#TicketList > tbody').append(trHTML);                    
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+        })           
+    };
+    GetTicketList();
+    function loadTicket(event){
+        console.log(event);
+        alert(event);
+        
+        alert(event.td);
+    }
+    $(document).ready(function() {
+
+        
+        
+        $('#TicketList tbody').click(function(e) {
+            console.log(e);
+            
+            var clickedRow= $(e.target).closest("tr");
+
+            var subjectTicket = $(clickedRow).children(':nth-child(3)').text();
+            var descTicket = $(clickedRow).children(':nth-child(4)').text();
+            var statusTicket = $(clickedRow).children(':nth-child(5)').text();
+            var priorityTicket = $(clickedRow).children(':nth-child(6)').text();
+            var ticketID = $(clickedRow).children(':nth-child(2)').text();
+            
+
+            var algo = $('#SubjectTicket').length;
+
+            $('#SubjectTicket').val(subjectTicket).change();                     
+            $('#DescriptionTicket').val(descTicket).change();
+            $('#IDTicket').val(ticketID).change();
+            $("#ticketStatus").val(statusTicket).change();
+            $("#ticketPriority").val(priorityTicket).change();
+
+
+            $('#newTicket').prop('disabled', true);
+            if($('#rolType').val()=='Support'){
+                $('#ticketStatus').prop('disabled', false);
+            }
+            if(($('#rolType').val()=='Support')||($('#rolType').val()=='Admin')){
+                $('#ticketPriority').prop('disabled', false);
+            }
+            $('#SubjectTicket').prop('disabled', true);
+            $('#DescriptionTicket').prop('disabled', true);
+            $('#editTicket').prop('disabled', false);
+            
+        });
+
+    });
+</script>    
+<script type="text/javascript">
+    var selcty = @ViewBag.UsrCtry;
+    var msgTicketMissingValues = "@(Html.Raw(((Paho.Controllers.TicketController)this.ViewContext.Controller).getMsg("msgTicketMissingValues")))";
+</script>
+<!-- /ko -->

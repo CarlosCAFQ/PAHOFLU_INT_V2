@@ -1,0 +1,70 @@
+﻿@model Paho.Models.CatAgeGroup
+
+<h2>@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgDeleteRecord", ViewBag.UsrCtry, ViewBag.UsrCtryLang))?</h3>
+<div>
+    <h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) - @(Paho.Controllers.ResourcesM.SgetMessage("msgAgeGroups", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_conf_country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_conf_country)
+        </dd>
+
+        <dt>
+            <!--@Html.DisplayNameFor(model => model.AgeGroup)-->
+            @Html.DisplayName(((string)Paho.Controllers.ResourcesM.SgetMessage("msgAgeGroups", ViewBag.UsrCtry, ViewBag.UsrCtryLang)))
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeGroup)
+        </dd>
+
+        <dt>
+            <!--@Html.DisplayNameFor(model => model.month_begin)-->
+            @Html.DisplayName(((string)Paho.Controllers.ResourcesM.SgetMessage("msgMonthStart", ViewBag.UsrCtry, ViewBag.UsrCtryLang)))
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.month_begin)
+        </dd>
+
+        <dt>
+            <!--@Html.DisplayNameFor(model => model.month_end)-->
+            @Html.DisplayName(((string)Paho.Controllers.ResourcesM.SgetMessage("msgMonthEnd", ViewBag.UsrCtry, ViewBag.UsrCtryLang)))
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.month_end)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.label_fluid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.label_fluid)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value=@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) class="btn btn-default" /> |
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "CatAgeGroup", new { }, null)
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

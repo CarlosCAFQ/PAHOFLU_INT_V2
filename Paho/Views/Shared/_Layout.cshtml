@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PAHO Flu</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <!--link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" -->
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css">
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    @{
+        ViewBag.Title = "Log in";
+        string MsgLang = "ENG";
+        int MsgCountry = 0;
+    }
+    <div class="masthead row">
+        <table>
+            <tr>
+                <td width="41%">
+                    <div class="col-md-3">
+                        <img src="~/Content/themes/base/images/logo_pahowho_blue-en.png" />
+                    </div>
+
+                </td>
+                <td>
+                    <div class="text-center h4">
+                        <div class="row" style="margin-top: 3px;">
+                            @(Paho.Controllers.ResourcesM.SgetMessage("msgSystemTitle1", MsgCountry, MsgLang))
+                        </div>
+                        <div class="row">
+                            @(Paho.Controllers.ResourcesM.SgetMessage("msgSystemTitle2", MsgCountry, MsgLang))
+                        </div>
+                        <div class="row">
+                            @(Paho.Controllers.ResourcesM.SgetMessage("msgSystemTitle3", MsgCountry, MsgLang))
+                        </div>
+                        <div class="row">
+                            @Paho.Controllers.ResourcesM.SgetMessage("msgSystemTitle4", MsgCountry, MsgLang)
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                           
+                        </div>
+                    </div>
+                </td>
+                <td width="21%"></td>
+            </tr>
+        </table>
+    </div>
+    <div id="menus" class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgLoginUserMainMenu", MsgCountry, MsgLang)), "Index", "Principal", new { area = "" }, null)</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid body-content" style="margin-left:210px;">
+        @RenderBody()
+        @RenderSection("SPAViews", required: false)
+        
+    </div> 
+    <hr />
+    <footer style="margin-left:5px;">
+        <p>&copy; @DateTime.Now.Year - Pan American Health Organization - World Health Organization. All rights reserved</p>
+    </footer> 
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

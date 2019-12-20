@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<Paho.Models.CatVirusFlow>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    //string labelTestResult = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatCloseParametersView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string labelCatalogName = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatCloseParametersView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCatalogName = "Virus - Flow";
+    string labelCreateNew = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_CrearNuevo", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelSearchCriteria = Paho.Controllers.ResourcesM.SgetMessage("msgSearchCriteria", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    string labelID = "ID";
+    string labelTestType = "Tipo Test";
+    string labelTestResult = "Resultado Test";
+    string labelVirus = "Virus";
+    string labelVirusSubtype = "Subtipo";
+    string labelVirusLinaje = "Linaje";
+
+    ViewBag.Title = labelCatalog + ": " + labelCatalogName;
+}
+
+<h4>@(labelCatalog) - @(labelCatalogName)</h4>
+
+<p>
+    @Html.ActionLink(labelCreateNew, "Create", "CatVirusFlow", new { area = "" }, null)
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName(labelID)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.id_Cat_TestType)*@
+            @Html.DisplayName(labelTestType)
+        </th>
+        <th>
+            @Html.DisplayName(labelTestResult)
+        </th>
+        <th>
+            @Html.DisplayName(labelVirus)
+        </th>
+        <th>
+            @Html.DisplayName(labelVirusSubtype)
+        </th>
+        <th>
+            @Html.DisplayName(labelVirusLinaje)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatTestTypes.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatTestResults.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatVirusTypes.SPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatVirusSubTypes.SPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CatVirusLinaje.SPA)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@(Paho.Controllers.ResourcesM.SgetMessage("msgPage", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @(Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_De", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");
+    //***************************************
+</script>

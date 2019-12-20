@@ -1,0 +1,96 @@
+﻿@*@model IEnumerable<Paho.Models.ApplicationUser>*@
+@model PagedList.IPagedList<Paho.Models.ApplicationUser>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    string LabelUserList = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminUserList", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelCreateUser = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexCreateUser", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelSearchCriteria = Paho.Controllers.ResourcesM.SgetMessage("msgSearchCriteria", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelBtnSearch = Paho.Controllers.ResourcesM.SgetMessage("viewHome_btnSearch", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelEdit = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexEdit", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelDelete = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexDelete", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    string LabelPage = Paho.Controllers.ResourcesM.SgetMessage("msgPage", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelDe = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_De", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    ViewBag.Title = "Listado de usuarios";
+}
+
+<h2>@(LabelUserList)</h2>
+
+<p>
+    @Html.ActionLink(LabelCreateUser, "Create")
+</p>
+
+@using (Html.BeginForm("Index", "UsersAdmin", FormMethod.Get))
+{
+    <p>
+        @(LabelSearchCriteria): @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value=@(LabelBtnSearch) />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexUserId", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexName", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditRoles", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminIndexCountry", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserRolesListJoin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.Country.Name)
+            </td>
+            <td>
+                @Html.ActionLink(LabelEdit, "Edit", new { id = item.Id }) |
+                @Html.ActionLink(LabelDelete, "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+@(LabelPage)
+@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+@(LabelDe) @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    //***************************************
+    $('a#usersadminLink').addClass("active");
+    //***************************************
+</script>  
+
+

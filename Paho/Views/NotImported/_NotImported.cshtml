@@ -1,0 +1,55 @@
+﻿<script type="text/javascript">
+
+        function ImportFileItem(data) {
+            var self = this;
+            self.ColFechaImport = data.ColFechaImport;
+            self.ColUsuarioImport = data.ColUsuarioImport;
+            self.ColFileImport = data.ColFileImport;
+        };
+
+        function AddImportFileList (element, index, array) {
+            ImportFileList.push(new ImportFileItem(element));
+        };
+
+        function GetImportFileList() {
+            $(document).ready(function () {
+                //alert("/getimportlab/GetImportFileList");
+                $.ajax({
+                    type: 'POST',
+                    url: '/GetImportLab/GetImportFileList',
+                    data: '{"Country_ID": "9" }',
+                    //success: function (data) { alert('data: ' + data); },
+                    success: function (data) {
+                        $("#LabelImportList").show();
+                        var trHTML = '';
+                        $.each(data, function (i, item) {
+                            trHTML += '<tr><td style="width:40%;">' + item.Fecha + '</td><td style="width:20%;" style="width:20%;">' + item.Usuario + '</td><td style="text-align:center; cursor:pointer;" title="click para descargar" onclick="window.open(\'/GetImportLab/GetImportedFile?importedFileName=' + item.Archivo + '\')"><img src="/Content/themes/base/images/blue_download.png"></td></tr>';
+                        });
+                        $('#LabelImportList').append(trHTML);
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
+                });
+            })
+        };
+        GetImportFileList();
+</script>
+<div class="container" style="margin-bottom:15px; margin-top:1em;">
+    <table id="LabelImportList" class="table table-hover table-responsive" style="width:550px; display:none;">
+        <thead>
+            <tr data-bind="attr:{'cursor':'pointer'},click: GetImportFileList">
+                <th class="col-md-1">@(((Paho.Controllers.NotImportedController)this.ViewContext.Controller).getMsg("viewNotImported_msgDateHeader"))</th>
+                <th class="col-md-1">@(((Paho.Controllers.NotImportedController)this.ViewContext.Controller).getMsg("viewNotImported_msgUserHeader"))</th>
+                <!--th class="col-md-1">@((ViewBag.UsrCtry == 7) ? "UPC" : "UCI") Tot</th-->
+                <th class="col-md-1" style="text-align:center;">@(((Paho.Controllers.NotImportedController)this.ViewContext.Controller).getMsg("viewNotImported_msgFileHeader"))</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#NotImportedM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

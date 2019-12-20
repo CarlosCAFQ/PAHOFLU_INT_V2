@@ -1,0 +1,75 @@
+﻿@model Paho.Models.TestCase
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TestCase</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VirusType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VirusType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

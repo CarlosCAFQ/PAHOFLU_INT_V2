@@ -1,0 +1,39 @@
+﻿@model Paho.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDeleteAccountUser", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h2>
+
+<h3>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDeleteAccountUserConfirmation", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h3>
+<div>
+    <h4>User.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDeleteAccountUserId", ViewBag.UsrCtry, ViewBag.UsrCtryLang))
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value='@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDeleteAccountButtonDelete", ViewBag.UsrCtry, ViewBag.UsrCtryLang))' class="btn btn-default" /> 
+        </div>
+        <br />
+
+            @Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDeleteAccountButtonReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), "Index")
+    }
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#usersadminLink').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script> 

@@ -1,0 +1,40 @@
+﻿@model Paho.Models.CatVaccinSource
+
+    <h3>@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgDeleteRecord", ViewBag.UsrCtry, ViewBag.UsrCtryLang))?</h3>
+    <div>
+        <h4>@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgDeleteVaccineOption", ViewBag.UsrCtry, ViewBag.UsrCtryLang))?</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @((string)Paho.Controllers.ResourcesM.SgetMessage("msgDescription", ViewBag.UsrCtry, ViewBag.UsrCtryLang)):
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayName(((string)Paho.Controllers.ResourcesM.SgetMessage("msgOrder", ViewBag.UsrCtry, ViewBag.UsrCtryLang))):
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.orden)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value=@(Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) class="btn btn-default" />  |
+                @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "CatVaccinSources", new { }, null)
+            </div>            
+        }
+    </div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

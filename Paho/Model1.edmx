@@ -1,0 +1,1981 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PahoFluModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Hometown" Type="nvarchar(max)" />
+          <Property Name="InstitutionID" Type="bigint" />
+          <Property Name="FirstName1" Type="nvarchar(max)" />
+          <Property Name="FirstName2" Type="nvarchar(max)" />
+          <Property Name="LastName1" Type="nvarchar(max)" />
+          <Property Name="LastName2" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CaseGEO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="AreaID" Type="int" />
+          <Property Name="StateID" Type="int" />
+          <Property Name="LocalID" Type="int" />
+          <Property Name="NeighborhoodID" Type="int" />
+          <Property Name="UrbanRural" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CaseHospital">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CHNum" Type="nvarchar" MaxLength="15" />
+          <Property Name="FeverDate" Type="datetime" />
+          <Property Name="FeverEW" Type="int" />
+          <Property Name="Antiviral" Type="nvarchar" MaxLength="1" />
+          <Property Name="AStartDate" Type="datetime" />
+          <Property Name="HospAmDate" Type="datetime" />
+          <Property Name="HospEW" Type="int" />
+          <Property Name="HospExDate" Type="datetime" />
+          <Property Name="ICUAmDate" Type="datetime" />
+          <Property Name="ICUEW" Type="int" />
+          <Property Name="ICUExDate" Type="datetime" />
+          <Property Name="Destin" Type="nvarchar" MaxLength="1" />
+          <Property Name="IsSample" Type="bit" />
+          <Property Name="SampleDate" Type="datetime" />
+          <Property Name="SampleType" Type="nvarchar" MaxLength="1" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="LabID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="CaseLab">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RecDate" Type="datetime" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+          <Property Name="NoProRen" Type="nvarchar(max)" />
+          <Property Name="EndLabDate" Type="datetime" />
+          <Property Name="FResult" Type="nvarchar(max)" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CaseLabTest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FluCaseID" Type="int" Nullable="false" />
+          <Property Name="VirusTypeID" Type="int" />
+          <Property Name="TestType" Type="int" Nullable="false" />
+          <Property Name="TestResultID" Type="nvarchar" MaxLength="1" />
+          <Property Name="TestDate" Type="datetime" />
+          <Property Name="TestEndDate" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CaseRisk">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Vaccin" Type="int" />
+          <Property Name="RiskFactors" Type="int" Nullable="false" />
+          <Property Name="HDisease" Type="bit" />
+          <Property Name="Diabetes" Type="bit" />
+          <Property Name="Neuro" Type="bit" />
+          <Property Name="Asthma" Type="bit" />
+          <Property Name="Pulmonary" Type="bit" />
+          <Property Name="Liver" Type="bit" />
+          <Property Name="Renal" Type="bit" />
+          <Property Name="Immunsupp" Type="bit" />
+          <Property Name="Pregnant" Type="int" />
+          <Property Name="Pperium" Type="bit" />
+          <Property Name="Trimester" Type="int" />
+          <Property Name="Smoking" Type="bit" />
+          <Property Name="Alcohol" Type="bit" />
+          <Property Name="DownSyn" Type="bit" />
+          <Property Name="Obesity" Type="int" />
+          <Property Name="OtherRisk" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CaseSummary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HosiptalId" Type="int" Nullable="false" />
+          <Property Name="StartDateOfWeek" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CaseSummaryDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CaseSummaryId" Type="int" Nullable="false" />
+          <Property Name="AgeGroup" Type="int" Nullable="false" />
+          <Property Name="HospFem" Type="int" Nullable="false" />
+          <Property Name="HospMaso" Type="int" Nullable="false" />
+          <Property Name="HospST" Type="int" Nullable="false" />
+          <Property Name="UCIFem" Type="int" Nullable="false" />
+          <Property Name="UCIMaso" Type="int" Nullable="false" />
+          <Property Name="UCIST" Type="int" Nullable="false" />
+          <Property Name="DefFem" Type="int" Nullable="false" />
+          <Property Name="DefMaso" Type="int" Nullable="false" />
+          <Property Name="DefST" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FluCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalID" Type="bigint" Nullable="false" />
+          <Property Name="HospitalDate" Type="datetime" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="FName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="FName2" Type="nvarchar(max)" />
+          <Property Name="LName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="LName2" Type="nvarchar(max)" />
+          <Property Name="NationalId" Type="nvarchar(max)" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Age" Type="int" />
+          <Property Name="AMeasure" Type="int" />
+          <Property Name="AgeGroup" Type="int" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+          <Property Name="InstID" Type="bigint" />
+          <Property Name="CaseID" Type="bigint" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="5" />
+          <Property Name="AgeM" Type="nvarchar" MaxLength="5" />
+          <Property Name="Users" Type="nvarchar" MaxLength="50" />
+          <Property Name="OldDate" Type="datetime2" Precision="7" />
+          <Property Name="NoExpediente" Type="nvarchar" Precision="100" />
+          <Property Name="VacInfluenza" Type="int" />
+          <Property Name="VacInfluenzaDateFirst" Type="datetime"/>
+          <Property Name="VacInfluenzaDateSecond" Type="datetime"/>
+        </EntityType>
+        <EntityType Name="Institution">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="AreaID" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+          <Property Name="InstID" Type="bigint" />
+          <Property Name="InstitutionType" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PahoFlu.dbo.iragcaso' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="iragcaso">
+          <Property Name="iragcasoid" Type="bigint" />
+          <Property Name="iragcasoserie" Type="bigint" />
+          <Property Name="iragcasoinstitucion" Type="bigint" />
+          <Property Name="iragcasopais" Type="char" MaxLength="4" />
+          <Property Name="iragcasofechanotificacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoci" Type="char" MaxLength="40" />
+          <Property Name="iragcasoedad" Type="smallint" />
+          <Property Name="iragcasoedadmedida" Type="char" MaxLength="2" />
+          <Property Name="iragcasosexo" Type="char" MaxLength="4" />
+          <Property Name="iragcasofrembarazada" Type="smallint" />
+          <Property Name="iragcasofrembarazadatrimestre" Type="smallint" />
+          <Property Name="iragcasofrpostparto" Type="smallint" />
+          <Property Name="iragcasoresidencia" Type="char" MaxLength="100" />
+          <Property Name="iragcasoresidenciadepto" Type="int" />
+          <Property Name="iragcasofrsin" Type="smallint" />
+          <Property Name="iragcasofrcomcardiopatia" Type="smallint" />
+          <Property Name="iragcasofrcomdiabetesdep" Type="smallint" />
+          <Property Name="iragcasofrcomhepatica" Type="smallint" />
+          <Property Name="iragcasofrcomneurologica" Type="smallint" />
+          <Property Name="iragcasofrcompulmonar" Type="smallint" />
+          <Property Name="iragcasofrcomrenal" Type="smallint" />
+          <Property Name="iragcasofrcominmunodef" Type="smallint" />
+          <Property Name="iragcasofrobesidadimc" Type="smallint" />
+          <Property Name="iragcasofrcomasma" Type="smallint" />
+          <Property Name="iragcasofrcomdown" Type="smallint" />
+          <Property Name="iragcasofrotrosespecificar" Type="char" MaxLength="80" />
+          <Property Name="iragcasofiebreinicia" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasohc" Type="char" MaxLength="20" />
+          <Property Name="iragcasoingresohospital" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoingresouci" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoegresouci" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoegresohospital" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoegresodestino" Type="char" MaxLength="2" />
+          <Property Name="iragcasooseltamivir" Type="char" MaxLength="2" />
+          <Property Name="iragcasooseltamivirinicio" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasofrvacunacion" Type="smallint" />
+          <Property Name="iragcasomuestrasi" Type="char" MaxLength="2" />
+          <Property Name="iragcasomuestrafecha" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestralaboratorio" Type="bigint" />
+          <Property Name="iragcasomuestrafecharecibido" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestranoprocesada" Type="char" MaxLength="2" />
+          <Property Name="iragcasomuestranomotivo" Type="char" MaxLength="160" />
+          <Property Name="iragcasomuestrafecharesultado" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestraifi" Type="char" MaxLength="2" />
+          <Property Name="iragcasomuestrapcr" Type="char" MaxLength="2" />
+          <Property Name="iragcasomuestraifivirus" Type="char" MaxLength="4" />
+          <Property Name="iragcasomuestraifimixto" Type="char" MaxLength="80" />
+          <Property Name="iragcasomuestrapcrvirus" Type="char" MaxLength="4" />
+          <Property Name="iragcasomuestrapcrsubtipo" Type="char" MaxLength="8" />
+          <Property Name="iragcasoingresausuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoingresafecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasomodificausuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasomodificafecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasoestado" Type="char" MaxLength="2" />
+          <Property Name="iragcasoobservaciones" Type="text" />
+          <Property Name="iragcasoresidenciapais" Type="char" MaxLength="4" />
+          <Property Name="iragcasoresidenciazona" Type="int" />
+          <Property Name="iragcasoresidencialocalidad" Type="bigint" />
+          <Property Name="iragcasoresidenciabarrio" Type="bigint" />
+          <Property Name="iragcasocaptadofecha" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasonombre1" Type="char" MaxLength="40" />
+          <Property Name="iragcasonombre2" Type="char" MaxLength="40" />
+          <Property Name="iragcasoapellido1" Type="char" MaxLength="40" />
+          <Property Name="iragcasoapellido2" Type="char" MaxLength="40" />
+          <Property Name="iragcasonacimientofecha" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasoenviamuestrausuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoenviamuestrafecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasorecibemuestrausuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasorecibemuestrafecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasoprocesaifiusuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoprocesaififecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasoresultadoifiusuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoresultadoififecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasocierrausuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasocierrafecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasoprocesapcrusuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoprocesapcrfecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasoresultadopcrusuario" Type="char" MaxLength="40" />
+          <Property Name="iragcasoresultadopcrfecha" Type="datetime2" Precision="6" />
+          <Property Name="iragcasofrtabaquismo" Type="smallint" />
+          <Property Name="iragcasomuestraenviadafecha" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestraifiprocesadafec" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestraifiresultadofec" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestrapcrprocesadafec" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasomuestrapcrresultadofec" Type="nvarchar" MaxLength="50" />
+          <Property Name="iragcasofralcoholismo" Type="smallint" />
+          <Property Name="iragcasoresidenciageo" Type="char" MaxLength="40" />
+          <Property Name="iragcasomuestratipo" Type="char" MaxLength="2" />
+          <Property Name="iragcasomuestraimagen" Type="varbinary" MaxLength="255" />
+          <Property Name="iragcasomuestraimagennombre" Type="char" MaxLength="255" />
+          <Property Name="iragcasomuestraimagentipo" Type="char" MaxLength="6" />
+          <Property Name="iragcasofranjaetareacompatible" Type="smallint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PahoFlu.dbo.kadinstitucion' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="kadinstitucion">
+          <Property Name="kadinstitucionid" Type="bigint" />
+          <Property Name="kadinstitucionnombre" Type="char" MaxLength="160" />
+          <Property Name="kadinstitucionnombrecorto" Type="char" MaxLength="40" />
+          <Property Name="kadinstitucionrut" Type="bigint" />
+          <Property Name="kadinstituciondomiciliocalle" Type="char" MaxLength="80" />
+          <Property Name="kadinstituciondomiciliocalleti" Type="char" MaxLength="20" />
+          <Property Name="kadinstituciondomicilionum" Type="smallint" />
+          <Property Name="kadinstituciondomiciliocomp" Type="char" MaxLength="100" />
+          <Property Name="kadinstituciondomiciliotipo" Type="char" MaxLength="2" />
+          <Property Name="kadinstituciondomiciliocp" Type="int" />
+          <Property Name="kadinstituciondomiciliogeo" Type="char" MaxLength="40" />
+          <Property Name="kadpaisid" Type="char" MaxLength="4" />
+          <Property Name="kaddepartamentoid" Type="int" />
+          <Property Name="kadlocalidadid" Type="bigint" />
+          <Property Name="kadinstituciontelefono" Type="char" MaxLength="40" />
+          <Property Name="kadinstitucionmail" Type="char" MaxLength="100" />
+          <Property Name="kadinstitucionweb" Type="text" />
+          <Property Name="kadinstitucionlogo" Type="varbinary" MaxLength="255" />
+          <Property Name="kadinstitucionlogonombre" Type="char" MaxLength="255" />
+          <Property Name="kadinstitucionlogotipo" Type="char" MaxLength="6" />
+          <Property Name="kadinstitucionimagen" Type="varbinary" MaxLength="255" />
+          <Property Name="kadinstitucionimagennombre" Type="char" MaxLength="255" />
+          <Property Name="kadinstitucionimagentipo" Type="char" MaxLength="6" />
+          <Property Name="kadinstitucionreportecabezal" Type="varchar" MaxLength="5" />
+          <Property Name="kadinstitucionreportelinea1" Type="char" MaxLength="100" />
+          <Property Name="kadinstitucionreportelinea2" Type="char" MaxLength="100" />
+          <Property Name="kadinstitucionreportelinea3" Type="char" MaxLength="100" />
+          <Property Name="kadinstitucionlogintentosfalli" Type="smallint" />
+          <Property Name="kadinstitucionlogtiempobaja" Type="smallint" />
+          <Property Name="kadinstitucionbienvenida" Type="char" MaxLength="100" />
+          <Property Name="kadinstitucionoid" Type="smallint" />
+          <Property Name="kadinstitucionbitacoraregistro" Type="smallint" />
+          <Property Name="kadinstitucionbitacoraautonume" Type="bigint" />
+          <Property Name="kadinstitucionnodos" Type="varchar" MaxLength="5" />
+          <Property Name="kadinstitucionpublicaciones" Type="varchar" MaxLength="5" />
+          <Property Name="kadinstituciontareas" Type="varchar" MaxLength="5" />
+          <Property Name="kadinstitucioncreausuario" Type="char" MaxLength="40" />
+          <Property Name="kadinstitucioncreafecha" Type="datetime2" Precision="6" />
+          <Property Name="kadinstitucionmodificausuario" Type="char" MaxLength="40" />
+          <Property Name="kadinstitucionmodificafecha" Type="datetime2" Precision="6" />
+          <Property Name="institucionnotificairag" Type="varchar" MaxLength="5" />
+          <Property Name="institucionlaboratorioirag" Type="varchar" MaxLength="5" />
+          <Property Name="institucionaccesototal" Type="varchar" MaxLength="5" />
+          <Property Name="kadzonaid" Type="int" />
+          <Property Name="kadbarrioid" Type="bigint" />
+          <Property Name="kadinstitucionlogintentosbloqu" Type="smallint" />
+        </EntityType>-->
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Neighborhood">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TestResult">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="VirusType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Area_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUsers_dbo_Institution_InstitutionID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="InstitutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Local_LocalID">
+          <End Role="Local" Type="Self.Local" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="LocalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID">
+          <End Role="Neighborhood" Type="Self.Neighborhood" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Neighborhood">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="NeighborhoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseHospital_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseHospital" Type="Self.CaseHospital" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseHospital">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseHospital_dbo_Institution_LabID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
+          <End Role="CaseHospital" Type="Self.CaseHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseHospital">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLab_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseLab" Type="Self.CaseLab" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLab">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="FluCaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_TestResult_TestResultID">
+          <End Role="TestResult" Type="Self.TestResult" Multiplicity="0..1" />
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestResult">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="TestResultID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID">
+          <End Role="VirusType" Type="Self.VirusType" Multiplicity="0..1" />
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VirusType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="VirusTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseRisk_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseRisk" Type="Self.CaseRisk" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseRisk">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId">
+          <End Role="CaseSummary" Type="Self.CaseSummary" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CaseSummaryDetail" Type="Self.CaseSummaryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseSummary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CaseSummaryDetail">
+              <PropertyRef Name="CaseSummaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_FluCase_dbo_Institution_HospitalID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FluCase">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Institution_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Institution_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Local_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Neighborhood_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Neighborhood" Type="Self.Neighborhood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Neighborhood">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_State_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PahoFluModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseGEO" EntityType="Self.CaseGEO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseHospital" EntityType="Self.CaseHospital" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseLab" EntityType="Self.CaseLab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseLabTest" EntityType="Self.CaseLabTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseRisk" EntityType="Self.CaseRisk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseSummary" EntityType="Self.CaseSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseSummaryDetail" EntityType="Self.CaseSummaryDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FluCase" EntityType="Self.FluCase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Institution" EntityType="Self.Institution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Neighborhood" EntityType="Self.Neighborhood" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestResult" EntityType="Self.TestResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VirusType" EntityType="Self.VirusType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Area_dbo_Country_CountryID" Association="Self.FK_dbo_Area_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Institution_InstitutionID" Association="Self.FK_dbo_AspNetUsers_dbo_Institution_InstitutionID">
+            <End Role="Institution" EntitySet="Institution" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Area_AreaID" Association="Self.FK_dbo_CaseGEO_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Country_CountryID" Association="Self.FK_dbo_CaseGEO_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_FluCase_ID" Association="Self.FK_dbo_CaseGEO_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCase" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Local_LocalID" Association="Self.FK_dbo_CaseGEO_dbo_Local_LocalID">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID" Association="Self.FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID">
+            <End Role="Neighborhood" EntitySet="Neighborhood" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_State_StateID" Association="Self.FK_dbo_CaseGEO_dbo_State_StateID">
+            <End Role="State" EntitySet="State" />
+            <End Role="CaseGEO" EntitySet="CaseGEO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseHospital_dbo_FluCase_ID" Association="Self.FK_dbo_CaseHospital_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCase" />
+            <End Role="CaseHospital" EntitySet="CaseHospital" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseHospital_dbo_Institution_LabID" Association="Self.FK_dbo_CaseHospital_dbo_Institution_LabID">
+            <End Role="Institution" EntitySet="Institution" />
+            <End Role="CaseHospital" EntitySet="CaseHospital" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLab_dbo_FluCase_ID" Association="Self.FK_dbo_CaseLab_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCase" />
+            <End Role="CaseLab" EntitySet="CaseLab" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID" Association="Self.FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID">
+            <End Role="FluCase" EntitySet="FluCase" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_TestResult_TestResultID" Association="Self.FK_dbo_CaseLabTest_dbo_TestResult_TestResultID">
+            <End Role="TestResult" EntitySet="TestResult" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID" Association="Self.FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID">
+            <End Role="VirusType" EntitySet="VirusType" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseRisk_dbo_FluCase_ID" Association="Self.FK_dbo_CaseRisk_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCase" />
+            <End Role="CaseRisk" EntitySet="CaseRisk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId" Association="Self.FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId">
+            <End Role="CaseSummary" EntitySet="CaseSummary" />
+            <End Role="CaseSummaryDetail" EntitySet="CaseSummaryDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_FluCase_dbo_Institution_HospitalID" Association="Self.FK_dbo_FluCase_dbo_Institution_HospitalID">
+            <End Role="Institution" EntitySet="Institution" />
+            <End Role="FluCase" EntitySet="FluCase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Institution_dbo_Area_AreaID" Association="Self.FK_dbo_Institution_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Institution" EntitySet="Institution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Institution_dbo_Country_CountryID" Association="Self.FK_dbo_Institution_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Institution" EntitySet="Institution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Local_dbo_State_StateID" Association="Self.FK_dbo_Local_dbo_State_StateID">
+            <End Role="State" EntitySet="State" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Neighborhood_dbo_State_StateID" Association="Self.FK_dbo_Neighborhood_dbo_State_StateID">
+            <End Role="State" EntitySet="State" />
+            <End Role="Neighborhood" EntitySet="Neighborhood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_State_dbo_Area_AreaID" Association="Self.FK_dbo_State_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PahoFluModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_dbo_Area_dbo_Country_CountryID" FromRole="Area" ToRole="Country" />
+          <NavigationProperty Name="CaseGEOs" Relationship="Self.FK_dbo_CaseGEO_dbo_Area_AreaID" FromRole="Area" ToRole="CaseGEO" />
+          <NavigationProperty Name="Institutions" Relationship="Self.FK_dbo_Institution_dbo_Area_AreaID" FromRole="Area" ToRole="Institution" />
+          <NavigationProperty Name="States" Relationship="Self.FK_dbo_State_dbo_Area_AreaID" FromRole="Area" ToRole="State" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hometown" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InstitutionID" Type="Int64" />
+          <Property Name="FirstName1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK_dbo_AspNetUsers_dbo_Institution_InstitutionID" FromRole="AspNetUsers" ToRole="Institution" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="CaseGEO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" />
+          <Property Name="AreaID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" />
+          <Property Name="LocalID" Type="Int32" />
+          <Property Name="NeighborhoodID" Type="Int32" />
+          <Property Name="UrbanRural" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_dbo_CaseGEO_dbo_Area_AreaID" FromRole="CaseGEO" ToRole="Area" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_dbo_CaseGEO_dbo_Country_CountryID" FromRole="CaseGEO" ToRole="Country" />
+          <NavigationProperty Name="FluCase" Relationship="Self.FK_dbo_CaseGEO_dbo_FluCase_ID" FromRole="CaseGEO" ToRole="FluCase" />
+          <NavigationProperty Name="Local" Relationship="Self.FK_dbo_CaseGEO_dbo_Local_LocalID" FromRole="CaseGEO" ToRole="Local" />
+          <NavigationProperty Name="Neighborhood" Relationship="Self.FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID" FromRole="CaseGEO" ToRole="Neighborhood" />
+          <NavigationProperty Name="State" Relationship="Self.FK_dbo_CaseGEO_dbo_State_StateID" FromRole="CaseGEO" ToRole="State" />
+        </EntityType>
+        <EntityType Name="CaseHospital">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CHNum" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FeverDate" Type="DateTime" Precision="3" />
+          <Property Name="FeverEW" Type="Int32" />
+          <Property Name="Antiviral" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="AStartDate" Type="DateTime" Precision="3" />
+          <Property Name="HospAmDate" Type="DateTime" Precision="3" />
+          <Property Name="HospEW" Type="Int32" />
+          <Property Name="HospExDate" Type="DateTime" Precision="3" />
+          <Property Name="ICUAmDate" Type="DateTime" Precision="3" />
+          <Property Name="ICUEW" Type="Int32" />
+          <Property Name="ICUExDate" Type="DateTime" Precision="3" />
+          <Property Name="Destin" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IsSample" Type="Boolean" />
+          <Property Name="SampleDate" Type="DateTime" Precision="3" />
+          <Property Name="SampleType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="LabID" Type="Int64" />
+          <NavigationProperty Name="FluCase" Relationship="Self.FK_dbo_CaseHospital_dbo_FluCase_ID" FromRole="CaseHospital" ToRole="FluCase" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK_dbo_CaseHospital_dbo_Institution_LabID" FromRole="CaseHospital" ToRole="Institution" />
+        </EntityType>
+        <EntityType Name="CaseLab">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RecDate" Type="DateTime" Precision="3" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+          <Property Name="NoProRen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndLabDate" Type="DateTime" Precision="3" />
+          <Property Name="FResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FluCase" Relationship="Self.FK_dbo_CaseLab_dbo_FluCase_ID" FromRole="CaseLab" ToRole="FluCase" />
+        </EntityType>
+        <EntityType Name="CaseLabTest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FluCaseID" Type="Int32" Nullable="false" />
+          <Property Name="VirusTypeID" Type="Int32" />
+          <Property Name="TestType" Type="Int32" Nullable="false" />
+          <Property Name="TestResultID" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TestDate" Type="DateTime" Precision="3" />
+          <Property Name="TestEndDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="FluCase" Relationship="Self.FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID" FromRole="CaseLabTest" ToRole="FluCase" />
+          <NavigationProperty Name="TestResult" Relationship="Self.FK_dbo_CaseLabTest_dbo_TestResult_TestResultID" FromRole="CaseLabTest" ToRole="TestResult" />
+          <NavigationProperty Name="VirusType" Relationship="Self.FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID" FromRole="CaseLabTest" ToRole="VirusType" />
+        </EntityType>
+        <EntityType Name="CaseRisk">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Vaccin" Type="Int32" />
+          <Property Name="RiskFactors" Type="Int32" Nullable="false" />
+          <Property Name="HDisease" Type="Boolean" />
+          <Property Name="Diabetes" Type="Boolean" />
+          <Property Name="Neuro" Type="Boolean" />
+          <Property Name="Asthma" Type="Boolean" />
+          <Property Name="Pulmonary" Type="Boolean" />
+          <Property Name="Liver" Type="Boolean" />
+          <Property Name="Renal" Type="Boolean" />
+          <Property Name="Immunsupp" Type="Boolean" />
+          <Property Name="Pregnant" Type="Int32" />
+          <Property Name="Pperium" Type="Boolean" />
+          <Property Name="Trimester" Type="Int32" />
+          <Property Name="Smoking" Type="Boolean" />
+          <Property Name="Alcohol" Type="Boolean" />
+          <Property Name="DownSyn" Type="Boolean" />
+          <Property Name="Obesity" Type="Int32" />
+          <Property Name="OtherRisk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FluCase" Relationship="Self.FK_dbo_CaseRisk_dbo_FluCase_ID" FromRole="CaseRisk" ToRole="FluCase" />
+        </EntityType>
+        <EntityType Name="CaseSummary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HosiptalId" Type="Int32" Nullable="false" />
+          <Property Name="StartDateOfWeek" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CaseSummaryDetails" Relationship="Self.FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId" FromRole="CaseSummary" ToRole="CaseSummaryDetail" />
+        </EntityType>
+        <EntityType Name="CaseSummaryDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CaseSummaryId" Type="Int32" Nullable="false" />
+          <Property Name="AgeGroup" Type="Int32" Nullable="false" />
+          <Property Name="HospFem" Type="Int32" Nullable="false" />
+          <Property Name="HospMaso" Type="Int32" Nullable="false" />
+          <Property Name="HospST" Type="Int32" Nullable="false" />
+          <Property Name="UCIFem" Type="Int32" Nullable="false" />
+          <Property Name="UCIMaso" Type="Int32" Nullable="false" />
+          <Property Name="UCIST" Type="Int32" Nullable="false" />
+          <Property Name="DefFem" Type="Int32" Nullable="false" />
+          <Property Name="DefMaso" Type="Int32" Nullable="false" />
+          <Property Name="DefST" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CaseSummary" Relationship="Self.FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId" FromRole="CaseSummaryDetail" ToRole="CaseSummary" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Areas" Relationship="Self.FK_dbo_Area_dbo_Country_CountryID" FromRole="Country" ToRole="Area" />
+          <NavigationProperty Name="CaseGEOs" Relationship="Self.FK_dbo_CaseGEO_dbo_Country_CountryID" FromRole="Country" ToRole="CaseGEO" />
+          <NavigationProperty Name="Institutions" Relationship="Self.FK_dbo_Institution_dbo_Country_CountryID" FromRole="Country" ToRole="Institution" />
+        </EntityType>
+        <EntityType Name="FluCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalID" Type="Int64" Nullable="false" />
+          <Property Name="HospitalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NationalId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="AMeasure" Type="Int32" />
+          <Property Name="AgeGroup" Type="Int32" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InstID" Type="Int64" />
+          <Property Name="CaseID" Type="Int64" />
+          <Property Name="Sex" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="AgeM" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Users" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OldDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="CaseGEO" Relationship="Self.FK_dbo_CaseGEO_dbo_FluCase_ID" FromRole="FluCase" ToRole="CaseGEO" />
+          <NavigationProperty Name="CaseHospital" Relationship="Self.FK_dbo_CaseHospital_dbo_FluCase_ID" FromRole="FluCase" ToRole="CaseHospital" />
+          <NavigationProperty Name="CaseLab" Relationship="Self.FK_dbo_CaseLab_dbo_FluCase_ID" FromRole="FluCase" ToRole="CaseLab" />
+          <NavigationProperty Name="CaseLabTests" Relationship="Self.FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID" FromRole="FluCase" ToRole="CaseLabTest" />
+          <NavigationProperty Name="CaseRisk" Relationship="Self.FK_dbo_CaseRisk_dbo_FluCase_ID" FromRole="FluCase" ToRole="CaseRisk" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK_dbo_FluCase_dbo_Institution_HospitalID" FromRole="FluCase" ToRole="Institution" />
+        </EntityType>
+        <EntityType Name="Institution">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryID" Type="Int32" />
+          <Property Name="AreaID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <Property Name="InstID" Type="Int64" />
+          <Property Name="InstitutionType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_dbo_Institution_dbo_Area_AreaID" FromRole="Institution" ToRole="Area" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUsers_dbo_Institution_InstitutionID" FromRole="Institution" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CaseHospitals" Relationship="Self.FK_dbo_CaseHospital_dbo_Institution_LabID" FromRole="Institution" ToRole="CaseHospital" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_dbo_Institution_dbo_Country_CountryID" FromRole="Institution" ToRole="Country" />
+          <NavigationProperty Name="FluCases" Relationship="Self.FK_dbo_FluCase_dbo_Institution_HospitalID" FromRole="Institution" ToRole="FluCase" />
+        </EntityType>
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CaseGEOs" Relationship="Self.FK_dbo_CaseGEO_dbo_Local_LocalID" FromRole="Local" ToRole="CaseGEO" />
+          <NavigationProperty Name="State" Relationship="Self.FK_dbo_Local_dbo_State_StateID" FromRole="Local" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Neighborhood">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CaseGEOs" Relationship="Self.FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID" FromRole="Neighborhood" ToRole="CaseGEO" />
+          <NavigationProperty Name="State" Relationship="Self.FK_dbo_Neighborhood_dbo_State_StateID" FromRole="Neighborhood" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_dbo_State_dbo_Area_AreaID" FromRole="State" ToRole="Area" />
+          <NavigationProperty Name="CaseGEOs" Relationship="Self.FK_dbo_CaseGEO_dbo_State_StateID" FromRole="State" ToRole="CaseGEO" />
+          <NavigationProperty Name="Locals" Relationship="Self.FK_dbo_Local_dbo_State_StateID" FromRole="State" ToRole="Local" />
+          <NavigationProperty Name="Neighborhoods" Relationship="Self.FK_dbo_Neighborhood_dbo_State_StateID" FromRole="State" ToRole="Neighborhood" />
+        </EntityType>
+        <EntityType Name="TestResult">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaseLabTests" Relationship="Self.FK_dbo_CaseLabTest_dbo_TestResult_TestResultID" FromRole="TestResult" ToRole="CaseLabTest" />
+        </EntityType>
+        <EntityType Name="VirusType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaseLabTests" Relationship="Self.FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID" FromRole="VirusType" ToRole="CaseLabTest" />
+        </EntityType>
+        <Association Name="FK_dbo_Area_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Institution_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_State_dbo_Area_AreaID">
+          <End Role="Area" Type="Self.Area" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUsers_dbo_Institution_InstitutionID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="InstitutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Local_LocalID">
+          <End Role="Local" Type="Self.Local" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="LocalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID">
+          <End Role="Neighborhood" Type="Self.Neighborhood" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Neighborhood">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="NeighborhoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseGEO_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="CaseGEO" Type="Self.CaseGEO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseGEO">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseHospital_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseHospital" Type="Self.CaseHospital" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseHospital">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseHospital_dbo_Institution_LabID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
+          <End Role="CaseHospital" Type="Self.CaseHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseHospital">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLab_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseLab" Type="Self.CaseLab" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLab">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="FluCaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_TestResult_TestResultID">
+          <End Role="TestResult" Type="Self.TestResult" Multiplicity="0..1" />
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestResult">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="TestResultID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID">
+          <End Role="VirusType" Type="Self.VirusType" Multiplicity="0..1" />
+          <End Role="CaseLabTest" Type="Self.CaseLabTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VirusType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseLabTest">
+              <PropertyRef Name="VirusTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseRisk_dbo_FluCase_ID">
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="1" />
+          <End Role="CaseRisk" Type="Self.CaseRisk" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FluCase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CaseRisk">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId">
+          <End Role="CaseSummary" Type="Self.CaseSummary" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CaseSummaryDetail" Type="Self.CaseSummaryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseSummary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CaseSummaryDetail">
+              <PropertyRef Name="CaseSummaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Institution_dbo_Country_CountryID">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_FluCase_dbo_Institution_HospitalID">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FluCase" Type="Self.FluCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FluCase">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Local_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Neighborhood_dbo_State_StateID">
+          <End Role="State" Type="Self.State" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Neighborhood" Type="Self.Neighborhood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Neighborhood">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="PahoFluEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Areas" EntityType="Self.Area" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="CaseGEOs" EntityType="Self.CaseGEO" />
+          <EntitySet Name="CaseHospitals" EntityType="Self.CaseHospital" />
+          <EntitySet Name="CaseLabs" EntityType="Self.CaseLab" />
+          <EntitySet Name="CaseLabTests" EntityType="Self.CaseLabTest" />
+          <EntitySet Name="CaseRisks" EntityType="Self.CaseRisk" />
+          <EntitySet Name="CaseSummaries" EntityType="Self.CaseSummary" />
+          <EntitySet Name="CaseSummaryDetails" EntityType="Self.CaseSummaryDetail" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="FluCases" EntityType="Self.FluCase" />
+          <EntitySet Name="Institutions" EntityType="Self.Institution" />
+          <EntitySet Name="Locals" EntityType="Self.Local" />
+          <EntitySet Name="Neighborhoods" EntityType="Self.Neighborhood" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="TestResults" EntityType="Self.TestResult" />
+          <EntitySet Name="VirusTypes" EntityType="Self.VirusType" />
+          <AssociationSet Name="FK_dbo_Area_dbo_Country_CountryID" Association="Self.FK_dbo_Area_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Area" EntitySet="Areas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Area_AreaID" Association="Self.FK_dbo_CaseGEO_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Institution_dbo_Area_AreaID" Association="Self.FK_dbo_Institution_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="Institution" EntitySet="Institutions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_State_dbo_Area_AreaID" Association="Self.FK_dbo_State_dbo_Area_AreaID">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Institution_InstitutionID" Association="Self.FK_dbo_AspNetUsers_dbo_Institution_InstitutionID">
+            <End Role="Institution" EntitySet="Institutions" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Country_CountryID" Association="Self.FK_dbo_CaseGEO_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_FluCase_ID" Association="Self.FK_dbo_CaseGEO_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCases" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Local_LocalID" Association="Self.FK_dbo_CaseGEO_dbo_Local_LocalID">
+            <End Role="Local" EntitySet="Locals" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID" Association="Self.FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID">
+            <End Role="Neighborhood" EntitySet="Neighborhoods" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseGEO_dbo_State_StateID" Association="Self.FK_dbo_CaseGEO_dbo_State_StateID">
+            <End Role="State" EntitySet="States" />
+            <End Role="CaseGEO" EntitySet="CaseGEOs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseHospital_dbo_FluCase_ID" Association="Self.FK_dbo_CaseHospital_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCases" />
+            <End Role="CaseHospital" EntitySet="CaseHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseHospital_dbo_Institution_LabID" Association="Self.FK_dbo_CaseHospital_dbo_Institution_LabID">
+            <End Role="Institution" EntitySet="Institutions" />
+            <End Role="CaseHospital" EntitySet="CaseHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLab_dbo_FluCase_ID" Association="Self.FK_dbo_CaseLab_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCases" />
+            <End Role="CaseLab" EntitySet="CaseLabs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID" Association="Self.FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID">
+            <End Role="FluCase" EntitySet="FluCases" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_TestResult_TestResultID" Association="Self.FK_dbo_CaseLabTest_dbo_TestResult_TestResultID">
+            <End Role="TestResult" EntitySet="TestResults" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID" Association="Self.FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID">
+            <End Role="VirusType" EntitySet="VirusTypes" />
+            <End Role="CaseLabTest" EntitySet="CaseLabTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseRisk_dbo_FluCase_ID" Association="Self.FK_dbo_CaseRisk_dbo_FluCase_ID">
+            <End Role="FluCase" EntitySet="FluCases" />
+            <End Role="CaseRisk" EntitySet="CaseRisks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId" Association="Self.FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId">
+            <End Role="CaseSummary" EntitySet="CaseSummaries" />
+            <End Role="CaseSummaryDetail" EntitySet="CaseSummaryDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Institution_dbo_Country_CountryID" Association="Self.FK_dbo_Institution_dbo_Country_CountryID">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Institution" EntitySet="Institutions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_FluCase_dbo_Institution_HospitalID" Association="Self.FK_dbo_FluCase_dbo_Institution_HospitalID">
+            <End Role="Institution" EntitySet="Institutions" />
+            <End Role="FluCase" EntitySet="FluCases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Local_dbo_State_StateID" Association="Self.FK_dbo_Local_dbo_State_StateID">
+            <End Role="State" EntitySet="States" />
+            <End Role="Local" EntitySet="Locals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Neighborhood_dbo_State_StateID" Association="Self.FK_dbo_Neighborhood_dbo_State_StateID">
+            <End Role="State" EntitySet="States" />
+            <End Role="Neighborhood" EntitySet="Neighborhoods" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PahoFluModelStoreContainer" CdmEntityContainer="PahoFluEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="PahoFluModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="PahoFluModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="PahoFluModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="PahoFluModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="PahoFluModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="PahoFluModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hometown" ColumnName="Hometown" />
+                <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+                <ScalarProperty Name="FirstName1" ColumnName="FirstName1" />
+                <ScalarProperty Name="FirstName2" ColumnName="FirstName2" />
+                <ScalarProperty Name="LastName1" ColumnName="LastName1" />
+                <ScalarProperty Name="LastName2" ColumnName="LastName2" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseGEOs">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseGEO">
+              <MappingFragment StoreEntitySet="CaseGEO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="LocalID" ColumnName="LocalID" />
+                <ScalarProperty Name="NeighborhoodID" ColumnName="NeighborhoodID" />
+                <ScalarProperty Name="UrbanRural" ColumnName="UrbanRural" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseHospitals">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseHospital">
+              <MappingFragment StoreEntitySet="CaseHospital">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CHNum" ColumnName="CHNum" />
+                <ScalarProperty Name="FeverDate" ColumnName="FeverDate" />
+                <ScalarProperty Name="FeverEW" ColumnName="FeverEW" />
+                <ScalarProperty Name="Antiviral" ColumnName="Antiviral" />
+                <ScalarProperty Name="AStartDate" ColumnName="AStartDate" />
+                <ScalarProperty Name="HospAmDate" ColumnName="HospAmDate" />
+                <ScalarProperty Name="HospEW" ColumnName="HospEW" />
+                <ScalarProperty Name="HospExDate" ColumnName="HospExDate" />
+                <ScalarProperty Name="ICUAmDate" ColumnName="ICUAmDate" />
+                <ScalarProperty Name="ICUEW" ColumnName="ICUEW" />
+                <ScalarProperty Name="ICUExDate" ColumnName="ICUExDate" />
+                <ScalarProperty Name="Destin" ColumnName="Destin" />
+                <ScalarProperty Name="IsSample" ColumnName="IsSample" />
+                <ScalarProperty Name="SampleDate" ColumnName="SampleDate" />
+                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseLabs">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseLab">
+              <MappingFragment StoreEntitySet="CaseLab">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+                <ScalarProperty Name="NoProRen" ColumnName="NoProRen" />
+                <ScalarProperty Name="EndLabDate" ColumnName="EndLabDate" />
+                <ScalarProperty Name="FResult" ColumnName="FResult" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseLabTests">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseLabTest">
+              <MappingFragment StoreEntitySet="CaseLabTest">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FluCaseID" ColumnName="FluCaseID" />
+                <ScalarProperty Name="VirusTypeID" ColumnName="VirusTypeID" />
+                <ScalarProperty Name="TestType" ColumnName="TestType" />
+                <ScalarProperty Name="TestResultID" ColumnName="TestResultID" />
+                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+                <ScalarProperty Name="TestEndDate" ColumnName="TestEndDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseRisks">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseRisk">
+              <MappingFragment StoreEntitySet="CaseRisk">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Vaccin" ColumnName="Vaccin" />
+                <ScalarProperty Name="RiskFactors" ColumnName="RiskFactors" />
+                <ScalarProperty Name="HDisease" ColumnName="HDisease" />
+                <ScalarProperty Name="Diabetes" ColumnName="Diabetes" />
+                <ScalarProperty Name="Neuro" ColumnName="Neuro" />
+                <ScalarProperty Name="Asthma" ColumnName="Asthma" />
+                <ScalarProperty Name="Pulmonary" ColumnName="Pulmonary" />
+                <ScalarProperty Name="Liver" ColumnName="Liver" />
+                <ScalarProperty Name="Renal" ColumnName="Renal" />
+                <ScalarProperty Name="Immunsupp" ColumnName="Immunsupp" />
+                <ScalarProperty Name="Pregnant" ColumnName="Pregnant" />
+                <ScalarProperty Name="Pperium" ColumnName="Pperium" />
+                <ScalarProperty Name="Trimester" ColumnName="Trimester" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="Alcohol" ColumnName="Alcohol" />
+                <ScalarProperty Name="DownSyn" ColumnName="DownSyn" />
+                <ScalarProperty Name="Obesity" ColumnName="Obesity" />
+                <ScalarProperty Name="OtherRisk" ColumnName="OtherRisk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseSummaries">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseSummary">
+              <MappingFragment StoreEntitySet="CaseSummary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="HosiptalId" ColumnName="HosiptalId" />
+                <ScalarProperty Name="StartDateOfWeek" ColumnName="StartDateOfWeek" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseSummaryDetails">
+            <EntityTypeMapping TypeName="PahoFluModel.CaseSummaryDetail">
+              <MappingFragment StoreEntitySet="CaseSummaryDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CaseSummaryId" ColumnName="CaseSummaryId" />
+                <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+                <ScalarProperty Name="HospFem" ColumnName="HospFem" />
+                <ScalarProperty Name="HospMaso" ColumnName="HospMaso" />
+                <ScalarProperty Name="HospST" ColumnName="HospST" />
+                <ScalarProperty Name="UCIFem" ColumnName="UCIFem" />
+                <ScalarProperty Name="UCIMaso" ColumnName="UCIMaso" />
+                <ScalarProperty Name="UCIST" ColumnName="UCIST" />
+                <ScalarProperty Name="DefFem" ColumnName="DefFem" />
+                <ScalarProperty Name="DefMaso" ColumnName="DefMaso" />
+                <ScalarProperty Name="DefST" ColumnName="DefST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="PahoFluModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FluCases">
+            <EntityTypeMapping TypeName="PahoFluModel.FluCase">
+              <MappingFragment StoreEntitySet="FluCase">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="HospitalDate" ColumnName="HospitalDate" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="FName1" ColumnName="FName1" />
+                <ScalarProperty Name="FName2" ColumnName="FName2" />
+                <ScalarProperty Name="LName1" ColumnName="LName1" />
+                <ScalarProperty Name="LName2" ColumnName="LName2" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="AMeasure" ColumnName="AMeasure" />
+                <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="InstID" ColumnName="InstID" />
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="AgeM" ColumnName="AgeM" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="OldDate" ColumnName="OldDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Institutions">
+            <EntityTypeMapping TypeName="PahoFluModel.Institution">
+              <MappingFragment StoreEntitySet="Institution">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+                <ScalarProperty Name="InstID" ColumnName="InstID" />
+                <ScalarProperty Name="InstitutionType" ColumnName="InstitutionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locals">
+            <EntityTypeMapping TypeName="PahoFluModel.Local">
+              <MappingFragment StoreEntitySet="Local">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Neighborhoods">
+            <EntityTypeMapping TypeName="PahoFluModel.Neighborhood">
+              <MappingFragment StoreEntitySet="Neighborhood">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="PahoFluModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestResults">
+            <EntityTypeMapping TypeName="PahoFluModel.TestResult">
+              <MappingFragment StoreEntitySet="TestResult">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VirusTypes">
+            <EntityTypeMapping TypeName="PahoFluModel.VirusType">
+              <MappingFragment StoreEntitySet="VirusType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="PahoFluModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paho", "Paho\Paho.csproj", "{280A6BFC-B6A9-4F1E-8366-C87D6761911C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{F54F07D9-00F0-4774-A1B0-635C5D630047}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{953D689F-27E7-4FEF-8914-227DDD0490A5}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\Paho-WAWS-dev.json = PublishScripts\Configurations\Paho-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSConsume", "WSConsume\WSConsume.csproj", "{2102CF5A-4A6F-45BB-8CC9-3FA89728902A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSPahoINCI", "WSPahoINCI\WSPahoINCI.csproj", "{2E6C5E6E-C3AC-4B18-85D4-17AB60978C71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{280A6BFC-B6A9-4F1E-8366-C87D6761911C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280A6BFC-B6A9-4F1E-8366-C87D6761911C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280A6BFC-B6A9-4F1E-8366-C87D6761911C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280A6BFC-B6A9-4F1E-8366-C87D6761911C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2102CF5A-4A6F-45BB-8CC9-3FA89728902A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2102CF5A-4A6F-45BB-8CC9-3FA89728902A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2102CF5A-4A6F-45BB-8CC9-3FA89728902A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2102CF5A-4A6F-45BB-8CC9-3FA89728902A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E6C5E6E-C3AC-4B18-85D4-17AB60978C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6C5E6E-C3AC-4B18-85D4-17AB60978C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6C5E6E-C3AC-4B18-85D4-17AB60978C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6C5E6E-C3AC-4B18-85D4-17AB60978C71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{953D689F-27E7-4FEF-8914-227DDD0490A5} = {F54F07D9-00F0-4774-A1B0-635C5D630047}
+	EndGlobalSection
+EndGlobal

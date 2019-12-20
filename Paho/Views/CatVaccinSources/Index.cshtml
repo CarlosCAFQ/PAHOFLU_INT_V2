@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<Paho.Models.CatVaccinSource>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = (Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + " - " + (Paho.Controllers.ResourcesM.SgetMessage("msgVaccineSource", ViewBag.UsrCtry, ViewBag.UsrCtryLang));
+}
+    <p>
+        @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_CrearNuevo", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Create", "CatVaccinSources", new { area = "" }, null)
+    </p>
+@using (Html.BeginForm("Index", "CatVaccinSources", FormMethod.Get))
+{
+    <p>
+        @(Paho.Controllers.ResourcesM.SgetMessage("msgSearchCriteria", ViewBag.UsrCtry, ViewBag.UsrCtryLang)): @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value=@(Paho.Controllers.ResourcesM.SgetMessage("viewHome_btnSearch", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) />
+    </p>
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgDescription", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "CatVaccinSources", new { sortOrder = ViewBag.SpaSortParm, currentFilter = ViewBag.CurrentFilter }, null)
+            </th>
+            <th>
+                @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgOrder", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "CatVaccinSources", new { sortOrder = ViewBag.SpaSortParm, currentFilter = ViewBag.CurrentFilter }, null)
+            </th>
+            <th>
+
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orden)
+            </td>
+            <td>
+                @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Editar", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Edit", "CatVaccinSources", new { id = item.ID }, null) |
+                @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Delete", "CatVaccinSources", new { id = item.ID }, null)
+            </td>
+        </tr>
+    }
+    
+    </table>
+@(Paho.Controllers.ResourcesM.SgetMessage("msgPage", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @(Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_De", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  
+

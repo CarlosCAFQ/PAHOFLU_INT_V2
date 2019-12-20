@@ -1,0 +1,134 @@
+﻿body {
+    /*padding-top: 50px;*/
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input[type="text"] {
+    min-width: 45px;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.institutionname {
+    max-width: 380px; 
+}
+
+/* Set padding to display errors that occur during databinding */
+.padding-error {
+    padding-top: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .nofloat {
+        float: none;
+        padding: 10px 15px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .affix {
+        position: static;
+        width: auto;
+        top: 0;
+    }
+}
+
+.btn-primary 
+{   
+    margin: 0 5px;  
+    border-radius: 0;
+}
+
+.btn-next 
+{   
+    margin: 0 5px;  
+    border-radius: 0;
+    float:right;
+}
+
+.btn-back 
+{   
+    margin: 0 5px;  
+    border-radius: 0;
+    float:left;
+}
+
+.error {  color: red; }
+.error input { border: 1px solid red; }
+
+.masthead {
+    /*color:#FFFFFF;*/
+    /*background-image:url("http://i.imgur.com/CtWlB0v.jpg?1");*/
+    /* background-color: lightblue; */
+    background-color:#ffffff;
+    background-repeat:no-repeat;
+    width: 100%;
+    /*z-index: 1050;*/
+    /*height:200px;*/
+}
+
+
+#menus {
+    background: none repeat scroll 0 0 #008dc9;
+    border: medium none;
+    clear: both;
+    display: block;
+    height: 13px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-top: 3px;
+    padding-bottom: 28px;
+    position: relative;
+    width: 100%;
+} 
+
+.span_arrow {
+    position: absolute; 
+    right: 19px; 
+    top: 7px;
+}
+
+.date_format {
+    font-size: 13px;
+    margin-left: 7px;
+}
+
+.case_letter{
+    text-transform: uppercase;
+}
+
+.CTSpan{
+    padding-left: 4px; 
+    padding-right: 2px;
+}
+
+.CTInput{
+    padding-left: 3px; 
+    padding-right: 2px;
+}
+
+.font_12 {
+    font-size:12px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+         @*@if (ViewBag.UsrCtry > 0)
+        {
+            <li> @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgMenuTicket", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "Ticket", new { area = "" }, null) </li>
+
+        }*@
+        
+        @*<li dstyle="display:none;"> @Html.ActionLink((((Paho.Controllers.HomeController)this.ViewContext.Controller).getMsg("viewLayoutAuthenticated_LabelNotImportedList")), "Index", "NotImported", new { area = "" }, null) </li>*@
+
+        @if (User.IsInRole("Admin"))
+        {
+        <li>@Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgMenuUsersAdminView", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "", "UsersAdmin", routeValues: new { area = "" }, htmlAttributes: new { id = "usersadminLink" })</li>
+        }
+        <li>
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgGeneralGreeting", ViewBag.UsrCtry, ViewBag.UsrCtryLang) + " " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li>
+            <a href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">@Paho.Controllers.ResourcesM.SgetMessage("msgGeneralLogOff", ViewBag.UsrCtry, ViewBag.UsrCtryLang)</a>
+            <input type="hidden" value="@ViewBag.UserInstitutionType" id="ITy" name="ITy"/>
+            <input type="hidden" value="@ViewBag.UsrInstID" id="IIDL" name="IIDL" />
+            <input type="hidden" value="@ViewBag.DateofServer" id="DSrv" name="DSrv" />
+            <input type="hidden" value="1" id="o_S" name="o_S" />
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">    
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

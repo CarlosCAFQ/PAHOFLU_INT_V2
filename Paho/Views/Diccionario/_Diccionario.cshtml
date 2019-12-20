@@ -1,0 +1,19 @@
+﻿<div class="row" style="margin-bottom:15px; margin-top:1em;">
+
+    <div class='input-group'>
+        <span class="input-group-addon">
+            <b>@(((Paho.Controllers.DiccionarioController)this.ViewContext.Controller).getMsg("viewLayoutAuthenticated_LabelDataDictionary"))</b>
+        </span>
+    </div>
+
+</div>
+
+<p>@(((Paho.Controllers.DiccionarioController)this.ViewContext.Controller).getMsg("msgClickToDownload"))</p>
+
+@Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgDownloadDataDictionary", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "GetDataDictionaryExcel", "exportar", new { area = "" }, null)
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>   

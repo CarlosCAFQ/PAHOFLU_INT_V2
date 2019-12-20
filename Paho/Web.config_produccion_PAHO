@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=301879
+  -->
+<configuration>
+  <configSections>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+  </configSections>
+  <connectionStrings>
+    <remove name="LocalSqlServer" />
+    <add connectionString="Server=HQ-SQL-ADM-TST;Database=PahoFlu;User Id=PAHOFluUser; password=P@h0f1U;MultipleActiveResultSets=True;" name="DefaultConnection" providerName="System.Data.SqlClient" />
+	<add name="Excel03ConString" connectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'" />
+	<add name="Excel07+ConString" connectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'" />
+  </connectionStrings>
+  <appSettings>
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="PageInspector:ServerCodeMappingSupport" value="Enabled" />
+    <add key="UploadDir" value="C:\Template\uploads"/>
+    <add key="GraphicsPath" value="C:\Template\Graphics\"/>
+    <add key="ImportTemplate" value="C:\Template\Import\ExportNoInsertados_{countryId}.xlsx"/>
+    <add key="ImportFailedFolder" value="C:\Template\ImportFailed\"/>
+    <add key="ImportTempFolder" value="C:\Template\ImportTemp\"/>
+    <add key="FluIDTemplate" value="C:\Template\FluID\FluID_{countryId}.xlsx"/>
+    <add key="SariTemplate" value="C:\Template\Export\Sari_{report}_{countryId}.xlsx"/>
+    <add key="DenominadoresTemplate" value="C:\Template\Export\Denominadores_{report}_{countryId}.xlsx"/>
+    <add key="BitacoraTemplate" value="C:\Template\Export\Bitacora_{report}_{countryId}.xlsx"/>
+    <add key="CONSDATA" value="C:\Template\Export\CONSDATA_{report}_{countryId}.xlsx"/>
+    <add key="DictionaryTemplate" value="C:\Template\Export\Diccionario.xlsx"/>
+    <add key="FormSariIliHospDeathTemplate" value="C:\Template\Export\FormSariIliHospDeath_{countryId}.xlsx"/>
+    <add key="ConsolidadoCargaTemplate" value="C:\Template\Export\ConsolidadoCarga_{report}_{countryId}.xlsx"/>
+    <add key="LibroReporteDiario" value="C:\Template\Export\LibroReporteDiario_{report}_{countryId}.xlsx"/>
+    <add key="CondicionesPreExistentes" value="C:\Template\Export\CondicionesPreExistentes_{report}_{countryId}.xlsx"/>
+    <add key="CasosPositivosConVacuna" value="C:\Template\Export\CasosPositivosConVacuna_{report}_{countryId}.xlsx"/>
+    <add key="PrintTestTemplate" value="C:\Template\Print\Form_{countryId}.xlsx"/>
+    <add key="FormRecordTemplate" value="C:\Template\Print\Form_record_{countryId}.xlsx"/>
+    <add key="graphG0Transform" value="C:\WWW_Develop\PAHOFLU_INT\Content\xsl\graphG0.xsl" />
+    <add key="graphG4Transform" value="C:\WWW_Develop\PAHOFLU_INT\Content\xsl\graphG4.xsl" />
+    <add key="graphG5Transform" value="C:\WWW_Develop\PAHOFLU_INT\Content\xsl\graphG5.xsl" />
+	<add key="PathPrintTest" value="C:\PrintTempCHI\"/>
+    <add key="IndicadoresDesempenio" value="C:\Template\Export\IndicDesemp_{report}_{countryId}.xlsx"/>
+	<add key="MuestrasLabTemplate" value="C:\Template\Export\MuestrasLab_{countryId}.xlsx"/> 
+    <add key="REVELAC-i" value="C:\Template\Export\REVELAC-i_{report}_{countryId}.xlsx"/>
+	<add key="FormSariIliHospDeathTemplate" value="C:\Template\Export\FormSariIliHospDeath_{countryId}.xlsx"/>  
+    <add key="IndicadoresDesempenioMetas_7" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_3" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_9" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+	<add key="IndicadoresDesempenioMetas_11" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_15" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_25" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_17" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_18" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="IndicadoresDesempenioMetas_119" value="90%:100%:90%:2D:3D:1D:48H:7D"/>
+    <add key="lang" value="ENG"/>
+
+  </appSettings>
+  <system.web>
+    <authentication mode="None" />
+    <compilation targetFramework="4.5.1" />
+    <httpRuntime targetFramework="4.5.1" executionTimeout="1000000" maxRequestLength="20480" />
+  </system.web>
+  <system.webServer>
+    <modules>
+      <remove name="FormsAuthenticationModule" />
+    </modules>
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Owin" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-2.1.0.0" newVersion="2.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Optimization" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="1.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-5.1.0.0" newVersion="5.1.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="v12.0" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+</configuration>
+<!--ProjectGuid: {280A6BFC-B6A9-4F1E-8366-C87D6761911C}-->

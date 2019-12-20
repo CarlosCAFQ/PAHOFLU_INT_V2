@@ -1,0 +1,60 @@
+﻿@model Paho.Models.CatPopulationInstitution
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>CatPopulationInstitution</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CountryPopulation.Code)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CountryPopulation.Code)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.InstitutionPopulation.FullName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.InstitutionPopulation.FullName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.population)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.population)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.year)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.year)
+            </dd>
+    
+
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

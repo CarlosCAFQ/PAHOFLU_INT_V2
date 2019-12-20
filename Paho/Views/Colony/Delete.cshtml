@@ -1,0 +1,81 @@
+﻿@model Paho.Models.Colony
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelHamlet")))</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <!-- Country -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelCountry"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hamlet.Neighborhood.State.Area.Country.Name)
+        </dd>
+        <!-- Area -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelArea"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hamlet.Neighborhood.State.Area.Name)
+        </dd>
+        <!-- State -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelState"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hamlet.Neighborhood.State.Name)
+        </dd>
+        <!-- Neighborhood -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelNeighborhood"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hamlet.Neighborhood.Name)
+        </dd>
+        <!-- Hamlet -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelHamlet"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hamlet.Name)
+        </dd>
+        <!-- Colony -->
+        <dt>
+            @Html.DisplayName((((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelColony"))):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <!-- orig_country -->
+        <dt>
+            @Html.DisplayNameFor(model => model.orig_country):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.orig_country)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>

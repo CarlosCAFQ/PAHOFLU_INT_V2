@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wscr.pahoflu.com/webservices/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wscr.pahoflu.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://wscr.pahoflu.com/webservices/">
+      <s:element name="GetDaPI">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="serverSQL" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDaPIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDaPIResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDaPISoapIn">
+    <wsdl:part name="parameters" element="tns:GetDaPI" />
+  </wsdl:message>
+  <wsdl:message name="GetDaPISoapOut">
+    <wsdl:part name="parameters" element="tns:GetDaPIResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSBDSoap">
+    <wsdl:operation name="GetDaPI">
+      <wsdl:input message="tns:GetDaPISoapIn" />
+      <wsdl:output message="tns:GetDaPISoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSBDSoap" type="tns:WSBDSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDaPI">
+      <soap:operation soapAction="http://wscr.pahoflu.com/webservices/GetDaPI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSBDSoap12" type="tns:WSBDSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDaPI">
+      <soap12:operation soapAction="http://wscr.pahoflu.com/webservices/GetDaPI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSBD">
+    <wsdl:port name="WSBDSoap" binding="tns:WSBDSoap">
+      <soap:address location="http://wscr.pahoflu.com/WSBD.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSBDSoap12" binding="tns:WSBDSoap12">
+      <soap12:address location="http://wscr.pahoflu.com/WSBD.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

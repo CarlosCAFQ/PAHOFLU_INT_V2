@@ -1,0 +1,170 @@
+﻿@model Paho.Models.ReportViewModel
+<!-- ko with: app.Views.Report -->
+<link href="~/Content/KoGrid.css" rel="stylesheet" />
+<div class="row" style="margin-bottom:15px; margin-top:1em;">        
+              @if (Model.DisplayCountries)
+              {
+                <div class="col-md-3">
+                    <div class='input-group' style="margin-top:1em;" data-bind="visible: displayFilters">
+                        <span class="input-group-addon">
+                            Country:
+                        </span>
+                        <select id="Pais" class="form-control" data-bind="options: activecountries,
+                           optionsText: 'Name',
+                           optionsValue: 'Id',
+                           value: selectedCountryId,
+                           optionsCaption: 'Seleccione...',
+                           event:{ change: ReloadInstitutions}"></select>
+                    </div>
+                </div>
+              }
+              @if (Model.DisplayHospitals)
+              {
+                <div class="col-md-3">
+                    <div id="HospitalsGroup" class='input-group' style="margin-top:1em; display: none" data-bind="visible: displayFilters">
+                        <span class="input-group-addon">
+                            Health center:
+                        </span>
+                        <select id="Hospitals" class="form-control" data-bind="options: hospitals,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: HospitalID,
+                       optionsCaption: 'Seleccione...'"></select>
+                    </div>
+                 </div>
+              }
+              @if (Model.DisplayLabs)
+              {
+                <div class="col-md-3">
+                    <div id="LabsGroup" class='input-group' style="margin-top:1em; display: none" data-bind="visible: displayFilters">
+                        <span class="input-group-addon">
+                            Laboratory:
+                        </span>
+                        <select id="Labs" class="form-control" data-bind="options: labs,
+                            optionsText: 'Name',
+                            optionsValue: 'Id',
+                            value: LabID,
+                            optionsCaption: 'Seleccione...'"></select>
+                    </div>
+                </Div>
+              }
+ </div> 
+ <div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                Name:
+            </span>
+            <input id="Name" type='text' class="form-control" data-bind="value: Name" />
+        </div>
+    </div>
+     <div class="col-md-3">
+         <div class='input-group'>
+             <span class="input-group-addon">
+                 Document Id:
+             </span>
+             <input id="DocID" type='text' class="form-control" data-bind="value: NationalID" />
+         </div>
+     </div>
+     <div class="col-md-3">
+         <div class='input-group'>
+             <span class="input-group-addon">
+                 Status:
+             </span>
+             <select id="combMedida" class="form-control" data-bind="value:CaseStatus">
+                 <option value=""></option>
+                 @*<option value="In">Ingresando</option>
+                 <option value="MT">Muestra Tomada</option>
+                 <option value="ME">Muestra Enviada</option>
+                 <option value="MR">Muestra Recibida</option>
+                 <option value="MP">Muestra en Proceso</option>
+                 <option value="RP">Resultado Parcial</option>
+                 <option value="MT">Egreso pendiente</option>
+                 <option value="ME">Caso Cerrado</option>*@
+                 <option value="A">Discharge</option>
+                 <option value="D">Death</option>
+                 <option value="R">Referred to another hospital</option>
+             </select>
+         </div>
+     </div>
+</div>
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                Notification date:
+            </span>            
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                Start date:
+            </span>
+            <input id="RStartDate" type='text' class="form-control" data-bind="datepicker: RStartDate" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+               End date:
+            </span>
+            <input id="REndDate" type='text' class="form-control" data-bind="datepicker: REndDate" />
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                Capture Date:
+            </span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                Start date:
+            </span>
+            <input id="HStartDate" type='text' class="form-control" data-bind="datepicker: HStartDate" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                End date:
+            </span>
+            <input id="HEndDate" type='text' class="form-control" data-bind="datepicker: HEndDate" />
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <button id="search" type="button" class="btn btn-primary" data-bind="click:  GetFlucases">Search</button>                      
+        </div>
+    </div>
+</div>
+
+<div id="flucases" class="row" style="display: none; width: 800px;" data-bind="koGrid: { data: Flucases,
+                          columnDefs: [{ field: 'CountryCode', displayName: 'Country', width:70 },
+                                       { field: 'ID', displayName: 'case ID', width: 80 },
+                                       { field: 'HospitalID', displayName: 'Hospital', width: 80 },
+                                       { field: 'HospitalDate', displayName: 'Hosp. Date', width: 90, cellFilter: function(data) { return moment(data).format('DD/MM/YYYY') }},
+                                       { field: 'RegDate', displayName: 'Reg. Date', width: 90, cellFilter: function(data) { return moment(data).format('DD/MM/YYYY') }},
+                                       { field: 'Name', displayName: 'Name', width: 120 },
+                                       { field: 'NationalID', displayName: 'Document ID', width: 120},
+                                       { field: 'CaseStatus', displayName: 'Case Status', width: 100 }],
+                             autogenerateColumns: false,
+                                    isMultiSelect: false,
+                                    enablePaging: true }"></div>
+
+<script type="text/javascript">
+    var countries = @Html.Raw(Json.Encode(Model.Countries));   
+    var labs = @Html.Raw(Json.Encode(Model.labs));
+    var hospitals = @Html.Raw(Json.Encode(Model.hospitals));    
+    
+</script>
+<!-- /ko -->
+
+

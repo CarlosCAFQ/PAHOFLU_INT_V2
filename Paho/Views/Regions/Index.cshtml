@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<Paho.Models.Region>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = (Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) + " - " + (Paho.Controllers.ResourcesM.SgetMessage("msgRegions", ViewBag.UsrCtry, ViewBag.UsrCtryLang));
+}
+
+<h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) - @(Paho.Controllers.ResourcesM.SgetMessage("msgRegions", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+
+<p>
+    @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_CrearNuevo", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Create", "Regions", new { area = "" }, null)
+</p>
+@using (Html.BeginForm("Index", "Regions", FormMethod.Get))
+{
+    <p>
+        @(Paho.Controllers.ResourcesM.SgetMessage("msgSearchCriteria", ViewBag.UsrCtry, ViewBag.UsrCtryLang)): @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value=@(Paho.Controllers.ResourcesM.SgetMessage("viewHome_btnSearch", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) />
+    </p>
+}
+<table class="table">
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CatRegionType.SPA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orig_country)
+        </th>
+        <th></th>
+    </tr>*@
+    <tr>
+        <th>
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgCountry", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "Regions", new { sortOrder = ViewBag.orig_country, currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgRegionType", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "Regions", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgName", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Index", "Regions", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Region No.", "Index", new { sortOrder = ViewBag.OrigCounSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cat_Country.Name)
+        </td>
+        <td>
+            @if (ViewBag.UsrCtryLang == "SPA")
+            {
+                @Html.DisplayFor(modelItem => item.CatRegionType.SPA)
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.CatRegionType.ENG)
+            }
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orig_country)
+        </td>
+        <td>
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Editar", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Edit", "Regions", new { id = item.ID }, null) |
+            @Html.ActionLink((string)Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang), "Delete", "Regions", new { id = item.ID }, null)
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+@(Paho.Controllers.ResourcesM.SgetMessage("msgPage", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @(Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_De", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>

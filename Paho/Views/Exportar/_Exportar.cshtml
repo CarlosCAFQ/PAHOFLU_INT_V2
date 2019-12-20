@@ -1,0 +1,367 @@
+﻿@model Paho.Models.ExportarViewModel
+
+<!-- ko with: app.Views.Exportar -->
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class='input-group'>
+        <span class="input-group-addon">
+            <!--<b>Generación de reportes</b>-->
+            <b>@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelReportsGeneration"))</b>
+        </span>
+    </div>
+</div>
+
+<!--Reportes:-->
+<div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+    <div class="col-md-5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelReports"))
+            </span>
+            <select id="Reports" class="form-control" data-bind="options: reportsCountries,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: selectedReportCountryId,
+                       optionsCaption: '@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarFieldSelect"))',
+                       valueUpdate:'change'"></select>
+        </div>
+    </div>
+</div>
+
+<!-- Vigilancia -->
+<div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+    <div class="col-md-5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelSurv"))
+            </span>
+            <select id="Surv" class="form-control" data-bind="value: Surv">
+                @if ((ViewBag.SARI == true && ViewBag.ILI == true) || (ViewBag.SARI == true && ViewBag.unusual == true) || (ViewBag.ILI == true && ViewBag.unusual == true) || (ViewBag.SARI == true && ViewBag.ILI == true && ViewBag.unusual == true))
+                {
+                    if (ViewBag.UsrCtry == 17)
+                    {
+                        <option value="0">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarFieldSelectSARIUniversal"))</option>
+                    }
+                    else
+                    {
+                        <option value="0">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarFieldSelect"))</option>
+                    }
+                }
+                @if (ViewBag.SARI == true)
+                {
+                    <option value="1">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelSari"))</option>
+                }
+                @if (ViewBag.ILI == true)
+                {
+                    <option value="2">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelIli"))</option>
+                }
+                @if (ViewBag.unusual == true)
+                {
+                    <option value="3">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelUnusualCase"))</option>
+                }
+
+            </select>
+            <!--
+            <label class="btn btn-default">
+                <input type="checkbox" name="SurvInusual" id="SurvInusual" data-bind="checked: SurvInusual">  @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelUnusualCase"))
+            </label>
+            -->
+        </div>
+    </div>
+</div>
+
+<!-- Centinela -->
+<div class="row" style="margin-bottom: 15px; margin-top: 1em;" data-bind="visible: ActiveHON()">
+    <div class="col-md-5">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @*(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelMonth"))*@
+                Centinela
+            </span>
+            <select id="Sentinel" name="Sentinel" class="form-control" data-bind="value: Sentinel">
+                <option value="">Seleccione...</option>
+                <option value="1"> Si </option>
+                <option value="0"> No </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!--País:-->
+@if (Model.DisplayCountries)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    <!--País:-->
+                    @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelCountry"))
+                </span>
+                <select id="Pais" class="form-control" data-bind="options: activecountries,
+                           optionsText: 'Name',
+                           optionsValue: 'Id',
+                           value: selectedCountryId,
+                           optionsCaption: '@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarFieldSelect"))',
+                           event:{ change: ReloadInstitutions},"></select>
+            </div>
+        </div>
+    </div>
+}
+
+<!--Areas / Parish-->
+@if (Model.DisplayAreas)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;" data-bind="visible: displayFilters">
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("viewHome_msgAreas"))
+                </span>
+                <select id="Areas" class="form-control" data-bind="options: areas,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: selectedAreaId "></select>
+            </div>
+        </div>
+    </div>
+}
+
+<!--Región:-->
+@if (Model.DisplayRegionals)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    <!--Región:-->
+                    @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelRegion"))
+                </span>
+                <select id="Regions" class="form-control" data-bind="options: regions,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: selectedRegionId,
+                       valueUpdate:'change',
+                       event:{ change: ReloadInstitutions}"></select>
+
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Establecimiento -->
+@if (Model.DisplayHospitals)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-5">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    <!--Establecimiento:-->
+                    @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelHospital"))
+                </span>
+                @*<select id="Hospitals" class="form-control" data-bind="options: institutions,
+                    optionsText: 'Name',
+                    optionsValue: 'Id',
+                    value: selectedInstitutionId,
+                    optionsCaption: '@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarFieldSelect"))',
+                    valueUpdate:'change'"></select>*@
+
+                <select id="Hospitals" class="form-control" data-bind="options: institutions,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: selectedInstitutionId,
+                       valueUpdate:'change'"></select>
+
+                @*optionsCaption: 'Select...',*@
+            </div>
+        </div>
+    </div>
+}
+
+<!-- #### MODAL ####-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">List of cases to be sent to the NIC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bind="click: exportarNPHL">Print report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelYear"))
+            </span>
+            <input id="año" type='text' class="form-control" data-bind="value: Year" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Mes:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelMonth"))
+            </span>
+            <select id="Mes" name="Mes" class="form-control" data-bind="value: Month">
+                <option value="">  </option>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+                <option value="11"> 11 </option>
+                <option value="12"> 12 </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--S.E.:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelEW"))
+            </span>
+            <input id="SE" type='text' class="form-control" data-bind="value: SE" />
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año desde:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelYearFrom"))
+            </span>
+            <input id="yearfrom" type='text' class="form-control" data-bind="value: YearFrom" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año hasta:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelYearTo"))
+            </span>
+            <input id="yearto" type='text' class="form-control" data-bind="value: YearTo" />
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Fecha inicio:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelStartDate"))
+            </span>
+            <input id="StartDate" type='text' class="form-control" data-bind='datepicker: StartDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+            <label class="date_format">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormat"))</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Fecha fin:-->
+                @(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelEndDate"))
+            </span>
+            <input id="EndDate" type='text' class="form-control" data-bind='datepicker: EndDate, datepickerOptions: { maxDate:"@Model.DatePickerConfig",  dateFormat:"@Model.DateFormatDP"}' />
+            <label class="date_format">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormat"))</label>
+        </div>
+    </div>
+</div>
+
+<!-- Vigilancia -->
+<!--
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-6">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                @*(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelSurv"))*@
+                Inusual
+            </span>
+
+            <label class="btn btn-default">
+                <input type="radio" name="SurvInusual" id="SurvInusual" value="1" data-bind="checked: SurvInusual"> Si
+                @*(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelSari"))*@
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="SurvInusual" id="SurvInusual" value="0" data-bind="checked: SurvInusual"> No
+                @*(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelIli"))*@
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="SurvInusual" id="SurvInusual" value="2" data-bind="checked: SurvInusual"> Todos
+                @*(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgCaselistVigTabContactLabelIli"))*@
+            </label>
+        </div>
+    </div>
+</div>
+-->
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;" data-bind="visible: !(IsReporteLabNPHL())">
+    <div class="col-md-3">
+        <div class='btn-group input-group'>
+            @*<a href="#" target="_blank" title="Generar reporte" class="btn btn-primary" data-bind="attr: { href: url}">Generar</a>*@
+            <!--<button id="GenerarReporte" type="button" class="btn btn-primary" data-bind="click: exportar">Generar</button>-->
+            <button id="GenerarReporte" type="button" class="btn btn-primary" data-bind="click: exportar">@(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarButtonGenerate"))</button>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;" data-bind="visible: IsReporteLabNPHL()">
+    <div class="col-md-3">
+        <div class='btn-group input-group'>
+            <button id="GenerarModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-bind="click: getCasosNPHL">
+                Cases selection
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+        var aa = "123";
+    })
+
+    var countries = @Html.Raw(Json.Encode(Model.Countries));
+    var areas= @Html.Raw(Json.Encode(Model.Areas));
+    //console.log(areas);
+    var regions= @Html.Raw(Json.Encode(Model.Regions));
+    var institutions = @Html.Raw(Json.Encode(Model.Institutions));
+    var reportsCountries = @Html.Raw(Json.Encode(Model.ReportsCountries));
+    //console.log(reportsCountries);
+    var CountryID = @Html.Raw(Model.CountryID);
+    var selcty = @ViewBag.UsrCtry;
+    var PAHOFLU_date_format = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormat")))";
+    var moment_date_format = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormatMoment")))";
+    var ISO_date_format = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormatISO")))";
+    var DatePicker_date_format = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgDateFormatDP")))";
+
+    /*   Mensajes de alerta de validaciones   */
+    var msgViewExportarValidateSelectionReport = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarValidateSelectionReport")))";
+    var msgViewExportarLabelReports = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarLabelReports")))";
+    var msgViewExportarValidateSelectionHospital = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarValidateSelectionHospital")))";
+    var msgViewExportarValidateSelectionYear = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarValidateSelectionYear")))";
+    var msgViewExportarValidateSelectionCriteria = "@(Html.Raw(((Paho.Controllers.ExportarController)this.ViewContext.Controller).getMsg("msgViewExportarValidateSelectionCriteria")))";
+
+    //***************************************
+    $('a#ExportarM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>
+<!-- /ko -->

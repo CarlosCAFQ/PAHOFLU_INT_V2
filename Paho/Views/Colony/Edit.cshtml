@@ -1,0 +1,204 @@
+﻿@model Paho.Models.Colony
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelColony"))</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <!-- Country -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hamlet.Neighborhood.State.Area.CountryID, (((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelCountry")), htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("CountryID", ViewBag.Countries as SelectList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Hamlet.Neighborhood.State.Area.CountryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Area -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hamlet.Neighborhood.State.AreaID, (((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelArea")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("AreaID", ViewBag.Areas as SelectList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Hamlet.Neighborhood.State.AreaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- StateID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hamlet.Neighborhood.StateID, (((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelState")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("StateID", new SelectList(" "), "--Seleccione--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Hamlet.Neighborhood.StateID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- NeighborhoodID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hamlet.NeighborhoodID, (((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelNeighborhood")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("NeighborhoodID", new SelectList(" "), "--Seleccione--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Hamlet.NeighborhoodID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- HamletID -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hamlet.Name, (((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgCaselistVigTabGeoLabelHamlet")),
+                            htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.DropDownList("HamletID", new SelectList(" "), "--Seleccione--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Hamlet.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Name -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- orig_country -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.orig_country, htmlAttributes: new { @class = "control-label col-md-1_5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.orig_country, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <!-- Boton: sbmit -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    function limpiarCampos() {
+        $("#Name").val("");
+        $("#orig_country").val("");
+    }
+
+    $(document).ready(function () {
+        var countryID = @(Model.Hamlet.Neighborhood.State.Area.CountryID);
+        var areaID = @(Model.Hamlet.Neighborhood.State.AreaID);
+        var stateID = @(Model.Hamlet.Neighborhood.StateID);
+        var neighborhoodID = @(Model.Hamlet.NeighborhoodID);
+        var hamletID = @(Model.HamletID);
+
+        if(countryID != ""){
+            $.get("/cases/GetAreas", { CountryID: countryID }, function (data) {
+                $("#AreaID").empty();
+                $.each(data, function (index, row) {
+                    $("#AreaID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+                $("#AreaID").val(areaID);
+            });
+        }
+
+        if(areaID != ""){
+            $.get("/cases/GetStates", { AreaID: areaID }, function (data) {
+                $("#StateID").empty();
+                $.each(data, function (index, row) {
+                    $("#StateID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+                $("#StateID").val(stateID);
+            });
+        }
+
+        if(stateID != ""){
+            $.get("/cases/GetNeighborhoods", { StateID: stateID }, function (data) {
+                $("#NeighborhoodID").empty();
+                $.each(data, function (index, row) {
+                    $("#NeighborhoodID").append("<option value=" + row.Id + ">" + row.Name + "</option>")
+                });
+                $("#NeighborhoodID").val(neighborhoodID);
+            });
+        }
+
+        if(neighborhoodID != ""){
+            $.get("/cases/GetHamlets", { NeighborhoodID: neighborhoodID }, function (data) {
+                $("#HamletID").empty();
+                $.each(data, function (index, row) {
+                    $("#HamletID").append("<option value=" + row.Id + ">" + row.Name + "</option>")
+                });
+                $("#HamletID").val(hamletID);
+            });
+        }
+
+        $("#AreaID").change(function () {       // Area : Departamento
+            $.get("/cases/GetStates", { AreaID: $("#AreaID").val() }, function (data) {
+                $("#StateID").empty();
+                $("#StateID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#StateID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+
+                $("#NeighborhoodID").empty();
+                $("#NeighborhoodID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+                $("#HamletID").empty();
+                $("#HamletID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+
+                limpiarCampos();
+            });
+        });
+
+        $("#StateID").change(function () {      //  State : Municipio
+            $.get("/cases/GetNeighborhoods", { StateID: $("#StateID").val() }, function (data) {
+                $("#NeighborhoodID").empty();
+                $("#NeighborhoodID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#NeighborhoodID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+
+                $("#HamletID").empty();
+                $("#HamletID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+
+                limpiarCampos();
+            });
+        });
+
+        $("#NeighborhoodID").change(function () { 
+            $.get("/cases/GetHamlets", { NeighborhoodID: $("#NeighborhoodID").val() }, function (data) {
+                $("#HamletID").empty();
+                $("#HamletID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+                $.each(data, function (index, row) {
+                    $("#HamletID").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+                });
+
+                $("#ColonyID").empty();
+                $("#ColonyID").append("<option value=''>" + "@(((Paho.Controllers.ColonyController)this.ViewContext.Controller).getMsg("msgSelectLabel"))" + "</option>")
+
+                limpiarCampos();
+            });
+        });
+
+        $("#HamletID").change(function () {
+            limpiarCampos();
+        });
+    });
+
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>

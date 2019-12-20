@@ -1,0 +1,156 @@
+﻿@model Paho.Models.InstitutionConfiguration
+@{ 
+    string LabelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelInstitution = Paho.Controllers.ResourcesM.SgetMessage("msgInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelInstitutionFrom = Paho.Controllers.ResourcesM.SgetMessage("msgInstitutionFrom", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelInstitutionToward = Paho.Controllers.ResourcesM.SgetMessage("msgInstitutionToward", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelFatherInstitution = Paho.Controllers.ResourcesM.SgetMessage("msgFatherInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelFlow = Paho.Controllers.ResourcesM.SgetMessage("msgFlow", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelConclusion = Paho.Controllers.ResourcesM.SgetMessage("viewHome_msgConclusion", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelOpenAlways = Paho.Controllers.ResourcesM.SgetMessage("msgOpenAlways", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelButtonSave = Paho.Controllers.CatVirusTypeController.SgetMessage("msgViewSummaryButtonSave", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelReturnToList = (string)Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" data-bind="with: app.Views.CatalogInstitution">
+        <h4>@(LabelCatalog) - @(LabelInstitution)</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        <div class="form-group vertical-align" id="div-father">
+            <label class="col-md-1_5 text_right">@(LabelInstitutionFrom):</label>
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.DropDownList("InstitutionFromID", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("InstitutionFromID", null, htmlAttributes: new { @class = "form-control" })
+                }
+               
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="div-father">
+            <label class="col-md-1_5 text_right">@(LabelInstitutionToward):</label>
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.DropDownList("InstitutionToID", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("InstitutionToID", null, htmlAttributes: new { @class = "form-control" })
+                }                  
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="div-father">
+            <label class="col-md-1_5 text_right">@(LabelFatherInstitution):</label>
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.DropDownList("InstitutionParentID", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownList("InstitutionParentID", null, htmlAttributes: new { @class = "form-control" })
+                }
+               
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.Priority, LabelFlow + ":", htmlAttributes: new { @class = "col-md-1_5 text_right" })
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control", @min = "1", @disabled = "disabled" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                }
+                
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.Conclusion, LabelConclusion + ":", htmlAttributes: new { @class = "col-md-1_5 text_right" })
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.EditorFor(model => model.Conclusion, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Conclusion, new { htmlAttributes = new { @class = "form-control" } })
+                }
+               
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            @Html.LabelFor(model => model.OpenAlways, LabelOpenAlways + ":", htmlAttributes: new { @class = "col-md-1_5 text_right" })
+            <div class="col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    @Html.EditorFor(model => model.OpenAlways, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.OpenAlways, new { htmlAttributes = new { @class = "form-control" } })
+                }              
+            </div>
+        </div>
+
+        <div class="form-group vertical-align" id="div-father">
+            <label class="col-md-1_5 text_right">Flujo finaliza si:</label>
+            <div class="col-md-7">
+                @Html.ListBoxFor(m => m.VirusFlowSelected, Model.VirusFlowCollection, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group vertical-align">
+            <div class="col-md-offset-2 col-md-7">
+                @if (ViewBag.ParentActive == false)
+                {
+                    <input type="submit" value=@(LabelButtonSave) class="btn btn-default" disabled="disabled" />
+                }
+                else
+                {
+                    <input type="submit" value=@(LabelButtonSave) class="btn btn-default" />
+                }                
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(LabelReturnToList, "Index", "CatInstitucionConf", new { }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/catalog-institution-conf")
+}
+
+<script type="text/javascript">
+        $(function () {
+            $('#VirusFlowSelected').multiselect({
+                //includeSelectAllOption: true
+            });
+        });
+</script>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

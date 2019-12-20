@@ -1,0 +1,57 @@
+﻿@model Paho.Models.CatPopulationInstitution
+
+
+<h3>@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_DeseaBorrarReg"))</h3>
+<div>
+    <h4>@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_BorrarPoblacInstitu"))</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="vertical-align, text-right">
+            @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Pais")):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryPopulation.Name)
+        </dd>
+
+        <dt class="vertical-align, text-right">
+            @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_NombreInstitu")):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstitutionPopulation.FullName)
+        </dd>
+
+        <dt class="vertical-align, text-right">
+            @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Poblacion")):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.population)
+        </dd>
+
+        <dt class="vertical-align, text-right">
+            @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Anio")):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.year)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value=@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Borrar")) class="btn btn-default" /> |
+            @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_RegresoListaOpci"), "Index")
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#PopulationInstitutionsM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

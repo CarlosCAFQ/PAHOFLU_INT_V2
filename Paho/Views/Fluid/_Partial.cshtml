@@ -1,0 +1,128 @@
+﻿@model Paho.Models.FluidViewModel
+<!-- ko with: app.Views.Fluid -->
+@if (Model.DisplayCountries)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-3">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_msgCountry"))
+                </span>
+                <select id="Pais" class="form-control" data-bind="options: activecountries,
+                           optionsText: 'Name',
+                           optionsValue: 'Id',
+                           value: selectedCountryId,
+                           optionsCaption: 'Select...',
+                           event:{ change: ReloadInstitutions}"></select>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.DisplayHospitals)
+{
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-3">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_msgInstitution"))
+                </span>
+                <select id="Hospitals" class="form-control" data-bind="options: institutions,
+                       optionsText: 'Name',
+                       optionsValue: 'Id',
+                       value: selectedInstitutionId"></select>
+            </div>
+        </div>
+    </div>
+}
+
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-3">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_msgYear"))
+                </span>
+                <input id="año" type='text' class="form-control" data-bind="value: Year"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-3">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_msgStartWeek"))
+                </span>
+                <input id="weekFrom" type='text' class="form-control" data-bind="value: WeekFrom"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom:15px; margin-top:1em;">
+        <div class="col-md-3">
+            <div class='input-group'>
+                <span class="input-group-addon">
+                    @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_msgStopWeek"))
+                </span>
+                <input id="weekTo" type='text' class="form-control" data-bind="value: WeekTo" />
+            </div>
+        </div>
+    </div>
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;" data-bind="visible:false">
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año desde:-->
+                @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgViewExportarLabelYearFrom"))
+            </span>
+            <input id="yearfrom" type='text' class="form-control" data-bind="value: YearFrom" />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='input-group'>
+            <span class="input-group-addon">
+                <!--Año hasta:-->
+                @(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgViewExportarLabelYearTo"))
+            </span>
+            <input id="yearto" type='text' class="form-control" data-bind="value: YearTo" />
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px; margin-top:1em;">
+    <div class="col-md-3">
+        <div class='btn-group input-group'>
+            @*<a href="#" title="Generate" class="btn btn-primary" data-bind="attr: { href: url}">Generate</a>*@
+            <button id="GenerarReporte" type="button" class="btn btn-primary" data-bind="click: exportar">@(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("viewFluid_btnGenerate"))</button>
+        </div>
+    </div>
+</div>
+
+
+    <div class="row" style="margin-bottom: 15px; margin-top: 1em;">
+        <div class="col-md-3">
+            <div>
+                @Html.Raw(ViewBag.Message)
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var countries = @Html.Raw(Json.Encode(Model.Countries));
+    var institutions = @Html.Raw(Json.Encode(Model.Institutions));
+    var CountryID = @Html.Raw(Model.CountryID);
+    var msgValidateInstitution = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgValidateInstitution")))";
+    var msgValidationFluidDate = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgValidationFluidDate")))";
+    var msgValidationFluidYearFrom = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgValidationFluidYearFrom")))";
+    var msgValidationFluidYearTo = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgValidationFluidYearTo")))";
+    
+    var PAHOFLU_date_format = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgDateFormat")))";
+    var moment_date_format = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgDateFormatMoment")))";
+    var ISO_date_format = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgDateFormatISO")))";
+    var DatePicker_date_format = "@(Html.Raw(((Paho.Controllers.FluidController)this.ViewContext.Controller).getMsg("msgDateFormatDP")))";
+
+    //***************************************
+    $('a#FluidM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>
+<!-- /ko -->

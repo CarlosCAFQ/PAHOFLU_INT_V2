@@ -1,0 +1,91 @@
+﻿@model Paho.Models.CatVirusFlow
+
+@{
+    string labelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    //string labelCatalogName = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatCloseParametersView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCatalogName = "Virus - Flujo";
+    string labelReturnToList = Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCreate = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Crear", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    //string labelTestType = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Crear", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelTestType = "Tipo Test";
+    string labelTestResult = "Resultado Test";
+    string labelVirusType = "Virus Tipo";
+    string labelVirusSubtype = "Virus Subtipo";
+    string labelVirusLinaje = "Virus Linaje";
+
+    ViewBag.Title = labelCatalog + ": " + labelCatalogName;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@(labelCatalog): @labelCatalogName</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TestType_ID, labelTestType + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(model => model.TestType_ID, new SelectList(Model.CatTestTypeCollection, "ID", "description"), "-- Seleccione --",
+                                        htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TestType_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TestResult_ID, labelTestResult + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(model => model.TestResult_ID, new SelectList(Model.CatTestResultCollection, "TestResultID", "description"), "-- Seleccione --",
+                                        htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TestResult_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VirusType_ID, labelVirusType + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(model => model.VirusType_ID, new SelectList(Model.CatVirusTypeCollection, "ID", "SPA"), "-- Seleccione --",
+                                        htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VirusType_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VirusSubtype_ID, labelVirusSubtype + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(model => model.VirusSubtype_ID, new SelectList(Model.CatVirusSubTypeCollection, "ID", "SPA"), "-- Seleccione --",
+                                        htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VirusSubtype_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VirusLinaje_ID, labelVirusLinaje + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+            <div class="col-md-7">
+                @Html.DropDownListFor(model => model.VirusLinaje_ID, new SelectList(Model.CatVirusLinajeCollection, "ID", "SPA"), "-- Seleccione --",
+                                        htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VirusLinaje_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value=@(labelCreate) class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(@labelReturnToList, "Index")
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");
+    //***************************************
+</script>

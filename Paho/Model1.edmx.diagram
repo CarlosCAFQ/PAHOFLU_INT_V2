@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="461e18517cb64eeda6af8bc457b42437" Name="Diagram1">
+        <EntityTypeShape EntityType="PahoFluModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.Area" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.AspNetRole" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.AspNetUserClaim" Width="1.5" PointX="9.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.AspNetUserLogin" Width="1.5" PointX="9.75" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.AspNetUser" Width="1.5" PointX="7.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseGEO" Width="1.5" PointX="9.75" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseHospital" Width="1.5" PointX="9.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseLab" Width="1.5" PointX="9.75" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseLabTest" Width="1.5" PointX="9.75" PointY="39.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseRisk" Width="1.5" PointX="9.75" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseSummary" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.CaseSummaryDetail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.Country" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.FluCase" Width="1.5" PointX="7.5" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.Institution" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.Local" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.Neighborhood" Width="1.5" PointX="7.5" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.State" Width="1.5" PointX="5.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.TestResult" Width="1.5" PointX="7.5" PointY="45.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PahoFluModel.VirusType" Width="1.5" PointX="7.5" PointY="47.5" IsExpanded="true" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_Area_dbo_Country_CountryID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_Area_AreaID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_Institution_dbo_Area_AreaID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_State_dbo_Area_AreaID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_AspNetUsers_dbo_Institution_InstitutionID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_Country_CountryID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_FluCase_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_Local_LocalID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_Neighborhood_NeighborhoodID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseGEO_dbo_State_StateID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseHospital_dbo_FluCase_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseHospital_dbo_Institution_LabID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseLab_dbo_FluCase_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseLabTest_dbo_FluCase_FluCaseID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseLabTest_dbo_TestResult_TestResultID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseLabTest_dbo_VirusType_VirusTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseRisk_dbo_FluCase_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_CaseSummaryDetail_dbo_CaseSummary_CaseSummaryId" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_Institution_dbo_Country_CountryID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_FluCase_dbo_Institution_HospitalID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_Local_dbo_State_StateID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.FK_dbo_Neighborhood_dbo_State_StateID" ManuallyRouted="false" />
+        <AssociationConnector Association="PahoFluModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

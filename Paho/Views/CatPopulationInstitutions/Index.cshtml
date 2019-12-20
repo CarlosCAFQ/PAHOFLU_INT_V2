@@ -1,0 +1,83 @@
+﻿@model PagedList.IPagedList<Paho.Models.CatPopulationInstitution>
+
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    //ViewBag.Title = "Catálogo - Población por institución de todo el país";
+    ViewBag.Title = ((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_CatalogoPoblacionInstit");
+}
+
+
+<!--<h4>Catálogo - Población por institución de todo el país</h4>-->
+<h4>@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_CatalogoPoblacionInstit"))</h4>
+<p>
+    @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_CrearNuevo"), "Create", new object { }, new { @class = "btn btn-default", style = "background-color:green; color:white" })
+</p>
+@using (Html.BeginForm("Index", "CatPopulationInstitutions", FormMethod.Get))
+{
+    <p>
+        @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_CriterioBusqueda")): @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value=@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Buscar")) />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Pais"), "Index", new { sortOrder = ViewBag.FullNameCountry, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Institucion"), "Index", new { sortOrder = ViewBag.FullNameInstitution, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Anio"), "Index", new { sortOrder = ViewBag.PopulationYear, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            <!--Cant. Población-->
+            @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_CantPoblacion"))
+        </th>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.fh_insert)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryPopulation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionPopulation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.population)
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.fh_insert)
+                </td>*@
+            <td>
+                @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Editar"), "Edit", new { id = item.id }) |
+                @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Borrar"), "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Pagina")) @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_De")) @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script type="text/javascript">
+    //***************************************
+    $('a#PopulationInstitutionsM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>  

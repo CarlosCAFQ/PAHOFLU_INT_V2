@@ -1,0 +1,156 @@
+﻿@model Paho.Models.EditUserViewModel
+
+@{
+    string LabelChangePassword = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminChangePasswordChangePassword", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelPassword = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminPassword", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string LabelPasswordConfirmation = Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminPasswordConfirmation", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    ViewBag.Title = "Edit";
+}
+
+<h2>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditAccount", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditUserForm", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditUserEmail", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+               @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+               @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditUserName", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <!-- CAFQ: 190105 -->
+        <div class="form-group" id="DIVChangePassword">
+            @*@Html.Label("ChangePasswordLabel", ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminChangePasswordChangePassword", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "control-label col-md-2" })*@
+            @Html.Label("ChangePasswordLabel", LabelChangePassword, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.ChangePassword, new { htmlAttributes = new { @class = "checkbox-inline" } })
+            </div>
+        </div>
+
+        <div class="form-group" id="DIVPassword">
+            @*@Html.LabelFor(m => m.Password, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminPassword", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label", id = "PasswordLabel", style = "display: none;" })*@
+            @Html.LabelFor(m => m.Password, LabelPassword, new { @class = "col-md-2 control-label", id = "PasswordLabel", style = "display: none;" })
+            <div class="col-md-5">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", style = "display: none;" })
+            </div>
+        </div>
+
+        <div class="form-group" id="DIVConfirmPassword">
+            @*@Html.LabelFor(m => m.ConfirmPassword, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminPasswordConfirmation", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label", id = "ConfirmPasswordLabel", style = "display: none;" })*@
+            @Html.LabelFor(m => m.ConfirmPassword, LabelPasswordConfirmation, new { @class = "col-md-2 control-label", id = "ConfirmPasswordLabel", style = "display: none;" })
+            <div class="col-md-5">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", style = "display: none;" })
+            </div>
+        </div>
+        <!-- CAFQ: 190105 END -->
+       <div class="form-group">
+            @Html.LabelFor(m => m.Hometown, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditHometown", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.Hometown, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName1, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditFirstName", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.FirstName1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName2, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditMiddleName", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.FirstName2, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName1, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditLastName", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.LastName1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName2, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditLastName2", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.LastName2, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.InstitutionID, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang)),  new { @class = "col-md-2 control-label" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(m => m.InstitutionID, Model.Institutions, new { @class = "form-control institutionname" })
+            </div>
+        </div>     
+        <div class="form-group">
+            @Html.Label("Roles", ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditRoles", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), new { @class = "control-label col-md-2" })
+            <div class="col-md-4_5">
+                @foreach (var item in Model.RolesList)
+                {
+                    <div class="col-sm-3" id="@item.Value">
+                        <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" @((item.Value == "Admin") ? "id=checkAdmin" : (item.Value == "Modify_Epi") ? "id=checkModify_Epi" : (item.Value == "Modify_Lab") ? "id=checkModify_Lab" : (item.Value == "Close_case") ? "id=checkClose_case" : ""  ) />
+                        @Html.Label(item.Value, new { @class = "control-label" })
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Foreign Institution -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ForeignLab, ((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminForeignInstitution", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), htmlAttributes: new { @class = "col-md-2 control-label" })
+            <div class="col-md-1" align="left">
+                @Html.EditorFor(model => model.ForeignLab, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <!-- Boton Grabar -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditButtonSave", ViewBag.UsrCtry, ViewBag.UsrCtryLang)) class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(((string)Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminEditButtonReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang)), "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/usersadmin")
+}
+<script type="text/javascript">
+    var AdminCountry = '@ViewBag.InstitutionType';
+</script>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#usersadminLink').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+    $('#ChangePassword').on('change', function (event) {
+        if ($('#ChangePassword').prop('checked')) {
+            $('#Password').show();
+            $('#ConfirmPassword').show();
+            $('#PasswordLabel').show();
+            $('#ConfirmPasswordLabel').show();
+        } else {
+            $('#Password').hide();
+            $('#ConfirmPassword').hide();
+            $('#PasswordLabel').hide();
+            $('#ConfirmPasswordLabel').hide();
+        }
+    })
+    //***************************************
+</script> 

@@ -1,0 +1,80 @@
+﻿@model Paho.Models.CatVirusFlow
+
+@{
+    string labelCatalog = Paho.Controllers.ResourcesM.SgetMessage("msgCatalog", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelCatalogName = Paho.Controllers.ResourcesM.SgetMessage("msgMenuCatCloseParametersView", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelReturnToList = Paho.Controllers.ResourcesM.SgetMessage("msgReturnToList", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelMsgDeleteRecord = Paho.Controllers.ResourcesM.SgetMessage("msgDeleteRecord", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+    string labelDelete = Paho.Controllers.ResourcesM.SgetMessage("msgViewCatPopulation_Borrar", ViewBag.UsrCtry, ViewBag.UsrCtryLang);
+
+    string labelTestType = "Tipo Test";
+    string labelTestResult = "Resultado Test";
+    string labelVirusType = "Virus Tipo";
+    string labelVirusSubtype = "Virus Subtipo";
+    string labelVirusLinaje = "Virus Linaje";
+
+    ViewBag.Title = labelCatalog + ": " + labelCatalogName;
+}
+
+<div>
+    <h4>@(labelCatalog): @labelCatalogName</h4>
+    <hr />
+    <h3>@(labelMsgDeleteRecord)?</h3>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.TestType_ID, labelTestType + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CatTestTypes.description)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.TestResult_ID, labelTestResult + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CatTestResults.description)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.VirusType_ID, labelVirusType + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CatVirusTypes.SPA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.VirusSubtype_ID, labelVirusSubtype + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CatVirusSubTypes.SPA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.VirusLinaje_ID, labelVirusLinaje + ":", htmlAttributes: new { @class = "col-md-1_5 text-right" })
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CatVirusLinaje.SPA)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color col-md-offset-1 col-md-10">
+            <input type="submit" value=@labelDelete class="btn btn-default" />
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink(@labelReturnToList, "Index")
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#MaintenanceM').addClass("active");
+    //***************************************
+</script>

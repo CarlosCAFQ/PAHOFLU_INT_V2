@@ -1,0 +1,110 @@
+﻿@model Paho.Models.CatPopulationInstitution
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/catalog-population")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_IngresoPoblaInsti"))</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.country_id, ((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Pais") + ":", htmlAttributes: new { @class = "control-label col-md-1_5 vertical-align text-right" })
+            <div class="col-md-7">
+                @Html.DropDownList("country_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.country_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_institution, ((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Institucion") + ":", htmlAttributes: new { @class = "control-label col-md-1_5 vertical-align text-right" })
+            <div class="col-md-7">
+                @Html.DropDownList("id_institution", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.id_institution, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.year, ((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Anio") + ":", htmlAttributes: new { @class = "control-label col-md-1_5 vertical-align text-right" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.population, ((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Poblacion") + ":", htmlAttributes: new { @class = "control-label col-md-1_5 vertical-align text-right" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.population, new { htmlAttributes = new { @class = "form-control", @readonly = "", @Value = 0 } })
+                @Html.ValidationMessageFor(model => model.population, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="table_details" name="table_details">
+            <table class="table table-hover table-responsive" style="width:500px;">
+                <thead id="LabelBandeja">
+                    <tr>
+                        <th class="col-md-3"><span class="input-group-addon">@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_GrupoEdad"))</span></th>
+                        <th class="col-md-1"><span class="input-group-addon">@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_PoblacionFemenina"))</span></th>
+                        <th class="col-md-1"><span class="input-group-addon">@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_PoblacionMasculina"))</span></th>
+                        <th class="col-md-1"><span class="input-group-addon">@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_PoblacionTotal"))</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var AGC in ViewBag.CPIDetails)
+                    {
+                        <tr>
+                            <td class="col-md-3">   @AGC.AgeGroupbyCountry.AgeGroup @Html.TextBox("Pop_id_conf_country", null, new { style = "width:40px", maxlength = "6", @Value = @AGC.AgeGroup, @type = "hidden" }) @*<input id="Population.id_conf_country" name="Population.id_conf_country" type='hidden' maxlength="5" class="form-control" data-bind="value:@AGC.AgeGroup" value="@AGC.AgeGroup" />*@ </td>
+                            <td class="col-md-1">  @Html.TextBox("Pop_PobFem", null, new { maxlength = "8", @Value = @AGC.PopulationFem, @class = "form-control", @type = "number" }) </td>
+                            <td class="col-md-1">  @Html.TextBox("Pop_PobMas", null, new { maxlength = "8", @Value = @AGC.PopulationMaso, @class = "form-control", @type = "number" }) </td>
+                            <td class="col-md-1">  @Html.TextBox("Pop_PobTot", null, new { maxlength = "8", @Value = @AGC.PopulationT, @class = "form-control", @readonly = "", @type = "number" }) </td>
+
+                        </tr>
+                    }
+
+                    @*@foreach (var AGC in ViewBag.CPIDetails)
+                        {
+                            <tr>
+                                <td class="col-md-3">   @AGC.AgeGroupbyCountry.AgeGroup <input id="Population.id_conf_country" name="Population.id_conf_country" type='hidden' maxlength="5" class="form-control" data-bind="value:@AGC.AgeGroup" value="@AGC.AgeGroup" /> </td>
+                                <td class="col-md-1">  <input id="Population.PobFem" name="Population.PobFem" type='number' maxlength="5" class="form-control" value="@AGC.PopulationFem"/> </td>
+                                <td class="col-md-1">  <input id="Population.PobMas" name="Population.PobMas" type='number' maxlength="5" class="form-control"  value="@AGC.PopulationMaso"/> </td>
+                                <td class="col-md-1">  <input id="Population.PobTot" name="Population.PobTot" type='number' maxlength="5" class="form-control"  value="@AGC.PopulationT" readonly /> </td>
+                            </tr>
+                        }*@
+
+                    <tr>
+                        <td class="col-md-3">  Total  </td>
+                        <td class="col-md-1">  @Html.TextBox("Pop_PobTFemTot", null, new { maxlength = "8",  @class = "form-control", @readonly = "", @type = "number" }) </td>
+                        <td class="col-md-1">  @Html.TextBox("Pop_PobTMasTot", null, new { maxlength = "8",  @class = "form-control", @readonly = "", @type = "number" }) </td>
+                        <td class="col-md-1">  @Html.TextBox("Pop_PobTTotTot", null, new { maxlength = "8",  @class = "form-control", @readonly = "", @type = "number" }) </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value=@(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_Crear")) class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(((Paho.Controllers.CatPopulationInstitutionsController)this.ViewContext.Controller).getMsg("msgViewCatPopulation_RegresoListaOpci"), "Index", new object { }, new { @class = "btn btn-primary" })
+</div>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#PopulationInstitutionsM').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script>      

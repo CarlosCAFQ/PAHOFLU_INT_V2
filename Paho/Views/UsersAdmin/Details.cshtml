@@ -1,0 +1,67 @@
+﻿@model Paho.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDetails", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h2>
+
+<div>
+    <h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDetailsUser", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Institution)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+</div>
+<h4>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDetailsListOfRolesUser", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</h4>
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <hr />
+    <p>@(Paho.Controllers.ResourcesM.SgetMessage("msgUsersAdminDetailsRolesNotFound", ViewBag.UsrCtry, ViewBag.UsrCtryLang))</p>
+}
+
+<table class="table">
+
+    @foreach (var item in ViewBag.RoleNames)
+    {
+        <tr>
+            <td>
+                @item
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript">
+    //***************************************
+    $('a#usersadminLink').addClass("active");        //#### CAFQ: 180806
+    //***************************************
+</script> 
+
